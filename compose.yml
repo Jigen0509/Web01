@@ -1,0 +1,50 @@
+volumes: # データを永続保存するためにdocker volumeを設定
+  mysql-volume:
+
+services:
+  # phpの設定
+  app: # サービス名（≠コンテナ名）を指定
+    container_name: portfolio_app # コンテナ名を指定（別のdocker環境がある場合、そちらとコンテナ名が被らないように注意）
+    build: # ビルドするDockerfileの設定
+      context: . # docker buildコマンドを実行する場所を指定（基本ルートディレクトリを指定しておけば良い（*2））
+      dockerfile: ./docker/php/Dockerfile # Dockerfileがあるパスを指定
+    volumes: # ローカルとdockerコンテナ間のディレクトリやファイルなどのリソースを対応付け
+      - ./src:/var/www/html # {ローカルのリソースのパス}:{dockerコンテナのリソースのパス}
+      - ./.ssh:/root/.ssh # sshの設定ファイルをdockerコンテナにコピー
+    environment: # Laravelの.envに設定してもOK（今回はdockerコンテナを起動する際に設定）
+      - DB_CONNECTION=mysql
+      - DB_HOST=db # dockerコンテナのmysqlのサーバー名を指定(今回はサービス名を指定)
+      - DB_PORT=3306 # dockerコンテナのmysqlのポート番号を指定
+      - DB_DATABASE=${DB_NAME}
+      - DB_USERNAME=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+
+  # nginxの設定
+  web:
+    container_name: portfolio_nginx
+    build:
+      context: .
+      dockerfile: ./docker/nginx/Dockerfile
+    ports: # ローカルとdockerコンテナ間のポート番号の対応付けを設定
+      - ${WEB_PORT}:80 # {ローカルのポート番号}:{dockerコンテナのポート番号}（ローカルは未使用のポートを指定すること、dockerはかぶっていてもOK）
+    depends_on: # コンテナ間の依存関係を設定
+      - app # 先に起動するコンテナのサービス名を指定（コンテナ名ではない）
+    volumes:
+      - ./src:/var/www/html
+  
+  # mysqlの設定
+  db:
+    container_name: portfolio_mysql
+    build:
+      context: .
+      dockerfile: ./docker/mysql/Dockerfile
+    ports:
+      - ${DB_PORT}:3306
+    environment:
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      TZ: 'Asia/Tokyo'
+    volumes:
+      - mysql-volume:/var/lib/mysql # {ローカルのvolumeの名前}:{dockerコンテナのDBのパス}
