@@ -25,14 +25,26 @@ RUN apt-get update && apt-get install -y \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-# アプリケーションファイルをコピー
-COPY src/. /var/www/html/
+# composer.jsonとcomposer.lockを先にコピー
+COPY src/composer.json src/composer.lock /var/www/html/
 
-# Composer依存関係をインストール
-RUN composer install --no-dev --optimize-autoloader --no-interaction
+# Composer依存関係をインストール（キャッシュ効率化）
+RUN composer install --no-dev --optimize-autoloader --no-interaction --no-scripts
 
-# NPM依存関係をインストールしてビルド
-RUN npm install && npm run build
+# package.jsonを先にコピー
+COPY src/package.json src/package-lock.json* /var/www/html/
+
+# NPM依存関係をインストール
+RUN npm install
+
+# 残りのアプリケーションファイルをコピー
+COPY src/ /var/www/html/
+
+# アセットをビルド
+RUN npm run build
+
+# Composerのpost-install-scriptsを実行
+RUN composer run-script post-autoload-dump
 
 # ストレージとキャッシュのパーミッション設定
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache \
