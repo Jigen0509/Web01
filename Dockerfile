@@ -26,7 +26,7 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # アプリケーションファイルをコピー
-COPY src /var/www/html
+COPY src/. /var/www/html/
 
 # Composer依存関係をインストール
 RUN composer install --no-dev --optimize-autoloader --no-interaction
