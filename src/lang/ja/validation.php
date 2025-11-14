@@ -39,6 +39,7 @@ return [
         'email' => 'メールアドレス',
         'password' => 'パスワード',
         'name' => '名前',
+        'password_confirmation' => 'パスワード(確認)',
     ],
 
 ];
