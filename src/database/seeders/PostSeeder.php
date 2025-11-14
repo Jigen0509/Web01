@@ -17,7 +17,7 @@ class PostSeeder extends Seeder
      */
     public function run()
     {
-        Post::truncate(); // 既存のデータをクリア
+        Post::query()->delete(); // 既存のデータをクリア
 
         // ユーザーとポイントが存在することを確認
         $users = User::all();

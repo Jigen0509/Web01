@@ -8,9 +8,17 @@ $kernel->bootstrap();
 
 echo "Starting direct seed...\n";
 
+// 外部キー制約を無効化
+\Illuminate\Support\Facades\DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+echo "Foreign key checks disabled\n";
+
 // Pointsテーブルをクリア
 \Illuminate\Support\Facades\DB::table('points')->truncate();
 echo "Points table truncated\n";
+
+// 外部キー制約を有効化
+\Illuminate\Support\Facades\DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+echo "Foreign key checks enabled\n";
 
 // 和白干潟を追加
 $point = \App\Models\Point::create([

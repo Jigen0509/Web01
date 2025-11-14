@@ -17,7 +17,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         echo "DatabaseSeeder: Starting...\n";
-        
+
         // 外部キー制約を一時的に無効にする
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         echo "DatabaseSeeder: Foreign key checks disabled\n";

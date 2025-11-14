@@ -15,8 +15,8 @@ class PointSeeder extends Seeder
      */
     public function run()
     {
-        // 既存のデータをクリア
-        Point::truncate();
+        // 既存のデータをクリア (truncateではなくdeleteを使用)
+        Point::query()->delete();
 
         // 和白・東区周辺の探索ポイントを追加
         Point::create([

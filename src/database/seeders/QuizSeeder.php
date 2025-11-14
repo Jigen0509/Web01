@@ -15,7 +15,7 @@ class QuizSeeder extends Seeder
             return;
         }
 
-        Quiz::truncate();
+        Quiz::query()->delete();
 
         $points = [
             '和白干潟' => Point::where('name', '和白干潟')->first(),
