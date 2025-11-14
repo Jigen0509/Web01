@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('rank')->default('初心者'); // ユーザーのランクを格納する文字列型
             $table->timestamp('email_verified_at')->nullable(); // メールアドレスの検証日時を格納するタイムスタンプ型（nullableはNULLを許可する）
             $table->string('image_path')->nullable(); // ユーザーの画像パスを格納する文字列型
+            $table->rememberToken(); // ログイン状態を保持するためのトークン
             $table->timestamps(); // created_atとupdated_atのタイムスタンプを自動的に管理するカラムを追加
         });
     }
