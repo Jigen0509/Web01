@@ -304,14 +304,36 @@
 
             <!-- Session Status -->
             @if (session('status'))
-            <div class="mb-6 p-4 bg-green-100 border-2 border-green-300 text-green-800">
+            <div class="mb-6 p-4 bg-green-100 border-2 border-green-300 text-green-800 rounded-lg">
                 <span class="font-medium" style="letter-spacing: 0.05em;">{{ session('status') }}</span>
             </div>
             @endif
 
-            <!-- ログインカード（初期非表示） -->
+            <!-- ログインカード(初期非表示) -->
             <div id="loginCard" class="hidden bg-white/95 backdrop-blur-md p-8 shadow-xl" style="border: 2px solid rgba(134, 239, 172, 0.3);">
                 <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center" style="letter-spacing: 0.05em;">ログイン</h2>
+
+                <!-- 認証エラーメッセージ -->
+                @if ($errors->any())
+                <div class="mb-6 p-4 bg-red-50 border-2 border-red-300 rounded-lg">
+                    <div class="flex items-start">
+                        <svg class="w-6 h-6 text-red-600 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <div class="flex-1">
+                            <h3 class="text-sm font-bold text-red-800 mb-2" style="letter-spacing: 0.05em;">ログインできませんでした</h3>
+                            <ul class="text-sm text-red-700 space-y-1">
+                                @foreach ($errors->all() as $error)
+                                <li style="letter-spacing: 0.03em;">• {{ $error }}</li>
+                                @endforeach
+                            </ul>
+                            <p class="mt-3 text-sm text-red-600 font-medium" style="letter-spacing: 0.03em;">
+                                💡 アカウントをお持ちでない場合は、下の「新規登録」ボタンから登録してください。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                @endif
 
                 <form method="POST" action="{{ secure_url(route('login', [], false)) }}" class="space-y-5">
                     @csrf
