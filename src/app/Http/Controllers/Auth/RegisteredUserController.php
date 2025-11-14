@@ -45,8 +45,9 @@ class RegisteredUserController extends Controller
 
         event(new Registered($user));
 
-        Auth::login($user);
+        // 自動ログインせず、ログインページにリダイレクト
+        // Auth::login($user);
 
-        return redirect(RouteServiceProvider::HOME);
+        return redirect()->route('login')->with('status', '登録が完了しました。ログインしてください。');
     }
 }
