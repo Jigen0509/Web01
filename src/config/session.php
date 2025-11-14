@@ -46,7 +46,7 @@ return [
     |
     */
 
-    'encrypt' => true,
+    'encrypt' => false,
 
     /*
     |--------------------------------------------------------------------------
@@ -196,7 +196,7 @@ return [
     |
     */
 
-    'same_site' => env('SESSION_SAME_SITE_COOKIE', 'strict'),
+    'same_site' => env('SESSION_SAME_SITE_COOKIE', 'lax'),
 
     /*
     |--------------------------------------------------------------------------
