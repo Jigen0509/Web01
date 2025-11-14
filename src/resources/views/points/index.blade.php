@@ -260,7 +260,7 @@
 
     <!-- 背景動画 -->
     <video autoplay muted loop playsinline>
-        <source src="{{ asset('image/Looping_Video_Day_to_Night.mp4') }}" type="video/mp4">
+        <source src="{{ secure_asset('image/Looping_Video_Day_to_Night.mp4') }}" type="video/mp4">
     </video>
 
     @for ($i = 0; $i < 20; $i++)
