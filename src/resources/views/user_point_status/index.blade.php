@@ -642,7 +642,7 @@
 
 <body>
     <!-- ログアウトボタン -->
-    <form method="POST" action="{{ route('logout') }}" style="display: inline;">
+    <form method="POST" action="{{ secure_url(route('logout', [], false)) }}" style="display: inline;">
         @csrf
         <button type="submit" class="logout-button">
             🚪 ログアウト

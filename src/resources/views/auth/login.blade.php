@@ -313,7 +313,7 @@
             <div id="loginCard" class="hidden bg-white/95 backdrop-blur-md p-8 shadow-xl" style="border: 2px solid rgba(134, 239, 172, 0.3);">
                 <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center" style="letter-spacing: 0.05em;">ログイン</h2>
 
-                <form method="POST" action="{{ route('login') }}" class="space-y-5">
+                <form method="POST" action="{{ secure_url(route('login', [], false)) }}" class="space-y-5">
                     @csrf
 
                     <!-- Email Address -->
