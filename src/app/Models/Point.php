@@ -11,7 +11,13 @@ class Point extends Model
 {
     use HasFactory;
 
-    protected $fillable = [];
+    protected $fillable = [
+        'name',
+        'description',
+        'latitude',
+        'longitude',
+        'image_path',
+    ];
 
     protected $casts = [
         'created_at' => 'datetime', // created_atは日付型として扱う
