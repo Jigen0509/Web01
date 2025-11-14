@@ -29,8 +29,10 @@ class DatabaseSeeder extends Seeder
             ['email' => 'test@example.com'], // emailが既に存在すれば作成しない
             [
                 'name' => 'テストユーザー',
-                'password' => bcrypt('password'), // パスワードは'password'
+                'password' => 'password', // パスワードは'password' (自動的にハッシュ化される)
                 'email_verified_at' => now(), // メール認証済みとしておく
+                'total_point' => 0,
+                'rank' => '初心者',
             ]
         );
 
