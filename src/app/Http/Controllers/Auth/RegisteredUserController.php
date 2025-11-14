@@ -39,6 +39,8 @@ class RegisteredUserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => $request->password,
+            'total_point' => 0,
+            'rank' => '初心者',
         ]);
 
         event(new Registered($user));
