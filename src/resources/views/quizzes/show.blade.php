@@ -253,7 +253,7 @@
 
 <body>
     <video class="video-background" autoplay muted loop playsinline>
-        <source src="/image/Looping_Video_Day_to_Night.mp4" type="video/mp4">
+        <source src="{{ secure_asset('image/Looping_Video_Day_to_Night.mp4') }}" type="video/mp4">
     </video>
 
     <div class="container">
