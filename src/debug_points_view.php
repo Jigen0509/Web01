@@ -1,8 +1,8 @@
 <?php
 
-require __DIR__.'/vendor/autoload.php';
+require __DIR__ . '/vendor/autoload.php';
 
-$app = require_once __DIR__.'/bootstrap/app.php';
+$app = require_once __DIR__ . '/bootstrap/app.php';
 $kernel = $app->make(Illuminate\Contracts\Console\Kernel::class);
 $kernel->bootstrap();
 
@@ -25,7 +25,7 @@ echo "\$points->count() > 0: " . ($points->count() > 0 ? "true" : "false") . "\n
 
 // ビューの条件を再現
 echo "\n=== VIEW CONDITION ===\n";
-if(isset($points) && $points->count() > 0) {
+if (isset($points) && $points->count() > 0) {
     echo "✅ Condition is TRUE - Points should be displayed\n";
     echo "First point for display test:\n";
     $firstPoint = $points->first();
