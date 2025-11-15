@@ -2,19 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Point;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class PointController extends Controller
 {
     // ポイント一覧 (場所一覧の表示)
-    public function index()
+    public function index(Request $request): View
     {
         // ここにポイント一覧を取得するロジックを実装
-        return view('points.index'); // ビューを返す
+        $points = Point::orderBy('name')->paginate(10); // 例として、名前でソートして10件ずつ取得
+        return view('points.index', compact('points')); // ビューを返す
     }
 
     // ポイント詳細 (場所の詳細表示)
-    public function show($point)
+    public function show(Point $point)
     {
         // ここに特定のポイントの詳細を取得するロジックを実装
         return view('points.show', compact('point')); // ビューを返す
