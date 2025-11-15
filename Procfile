@@ -1,1 +1,1 @@
-web: heroku-php-apache2 src/public/
+web: heroku-php-apache2 app/public/
