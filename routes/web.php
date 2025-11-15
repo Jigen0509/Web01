@@ -1,4 +1,5 @@
 <?php
+// deploy-marker: enforce redirect to login (updated)
 
 use App\Http\Controllers\PointController;
 use App\Http\Controllers\QuizController;
