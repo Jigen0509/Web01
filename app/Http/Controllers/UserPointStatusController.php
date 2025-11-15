@@ -2,15 +2,97 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\UserPointStatus;
+
 use Illuminate\Http\Request;
 
 class UserPointStatusController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     // ユーザーのポイントステータス一覧
     public function index()
     {
-        // ここにユーザーのポイントステータス一覧を取得するロジックを実装
-        return view('user_point_status.index'); // ビューを返す
+        // 必要なデータを取得
+        $user = auth()->user();
+        // クイズまたは写真のいずれかがクリアされている場合のみ取得
+        $userStatuses = UserPointStatus::with('point')
+            ->where('user_id', $user->id)
+            ->where(function ($query) {
+                $query->where('quiz_cleared', true)
+                    ->orWhere('photo_cleared', true);
+            })
+            ->get();
+
+        $totalVisited = $userStatuses->count();
+        $totalQuizCleared = $userStatuses->where('quiz_cleared', true)->count();
+        $totalPhotoCleared = $userStatuses->where('photo_cleared', true)->count();
+
+        // ランクとポイントの計算
+        $this->updateUserRankAndPoints($user, $totalVisited, $totalQuizCleared, $totalPhotoCleared);
+
+        // ランク画像の取得
+        $rankImage = $this->getRankImage($user->rank);
+
+        return view('user_point_status.index', compact(
+            'user',
+            'userStatuses',
+            'totalVisited',
+            'totalQuizCleared',
+            'totalPhotoCleared',
+            'rankImage'
+        ));
+    }
+
+    /**
+     * ユーザーのランクとポイントを更新
+     */
+    private function updateUserRankAndPoints($user, $totalVisited, $totalQuizCleared, $totalPhotoCleared)
+    {
+        // 全ポイント数（訪問した場所 × 2ミッション）
+        $totalMissions = $totalVisited * 2;
+
+        // クリアしたミッション数
+        $clearedMissions = $totalQuizCleared + $totalPhotoCleared;
+
+        // 達成率の計算（小数点切り捨て）
+        $completionRate = $totalMissions > 0 ? floor(($clearedMissions / $totalMissions) * 100) : 0;
+
+        // ランクの判定
+        if ($completionRate <= 29) {
+            $newRank = '駆け出しの探検家';
+        } elseif ($completionRate <= 69) {
+            $newRank = 'フィールド調査員';
+        } else {
+            $newRank = '和白の発見者';
+        }
+
+        // ポイントの計算（クリアしたミッション数 × 10ポイント）
+        $totalPoints = $clearedMissions * 10;
+
+        // ランクとポイントが変更された場合のみ更新
+        if ($user->rank !== $newRank || $user->total_point !== $totalPoints) {
+            $user->rank = $newRank;
+            $user->total_point = $totalPoints;
+            $user->save();
+        }
+    }
+
+    /**
+     * ランクに対応する画像パスを取得
+     */
+    private function getRankImage($rank)
+    {
+        $imageMap = [
+            '駆け出しの探検家' => '/image/status1.png',
+            'フィールド調査員' => '/image/status2.png',
+            '和白の発見者' => '/image/status3.png',
+        ];
+
+        return $imageMap[$rank] ?? '/image/status1.png';
     }
 
     // ユーザーのポイントステータス詳細

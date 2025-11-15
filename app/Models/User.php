@@ -23,9 +23,14 @@ class User extends Authenticatable
         'rank', // ランク
     ];
 
+    protected $attributes = [
+        'total_point' => 0,
+        'rank' => '初心者',
+    ];
+
     protected $hidden = [
         'password', // パスワードはハッシュ化されているため、通常は表示しない
-        //'remember_token',//「ログインを記憶する」機能で使用されるトークン(使用するかは不明)
+        'remember_token', // 「ログインを記憶する」機能で使用されるトークン
     ];
 
     protected $casts = [
