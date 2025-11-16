@@ -49,11 +49,11 @@ Route::get('/points/{point}', [PointController::class, 'show'])->name('points.sh
 // 投稿一覧 (ユーザーの投稿一覧表示)
 Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
 
+// 投稿作成 (新規投稿フォームの表示) ※ {post}より前に配置
+Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create')->middleware('auth');
+
 // 投稿詳細 (特定の投稿の詳細表示)
 Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show');
-
-// 投稿作成 (新規投稿フォームの表示)
-Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create')->middleware('auth');
 
 // 投稿保存 (新規投稿の保存)c
 Route::post('/posts', [PostController::class, 'store'])->name('posts.store')->middleware('auth');
