@@ -97,7 +97,8 @@
             z-index: 50;
             flex-wrap: wrap;
             justify-content: center;
-            max-width: 90%;
+            max-width: 100%;
+            padding: 0 10px;
         }
 
         .nav-tag {
@@ -132,9 +133,15 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            padding: 100px 20px 40px;
+            padding: 80px 15px 30px;
             position: relative;
             z-index: 1;
+        }
+
+        @media (min-width: 640px) {
+            .main-container {
+                padding: 100px 20px 40px;
+            }
         }
 
         .content-wrapper {
@@ -143,14 +150,29 @@
         }
 
         .page-title {
-            font-size: 48px;
+            font-size: 28px;
             font-weight: 900;
             color: #86efac;
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
             text-shadow: 0 0 20px rgba(134, 239, 172, 0.5);
-            letter-spacing: 0.1em;
+            letter-spacing: 0.05em;
             animation: titleGlow 3s ease-in-out infinite;
+        }
+
+        @media (min-width: 640px) {
+            .page-title {
+                font-size: 36px;
+                margin-bottom: 35px;
+                letter-spacing: 0.1em;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .page-title {
+                font-size: 48px;
+                margin-bottom: 40px;
+            }
         }
 
         @keyframes titleGlow {
@@ -168,9 +190,21 @@
         .points-container {
             background: rgba(16, 185, 129, 0.15);
             backdrop-filter: blur(15px);
-            padding: 40px;
+            padding: 20px;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
             border: 2px solid rgba(134, 239, 172, 0.4);
+        }
+
+        @media (min-width: 640px) {
+            .points-container {
+                padding: 30px;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .points-container {
+                padding: 40px;
+            }
         }
 
         .points-list {
@@ -185,7 +219,7 @@
         .point-link {
             display: flex;
             align-items: center;
-            padding: 20px 25px;
+            padding: 15px 18px;
             background: rgba(16, 185, 129, 0.25);
             backdrop-filter: blur(10px);
             border: 2px solid rgba(134, 239, 172, 0.5);
@@ -193,10 +227,25 @@
             text-decoration: none;
             color: #ffffff;
             font-weight: 700;
-            font-size: 18px;
+            font-size: 15px;
             transition: all 0.3s ease;
-            letter-spacing: 0.05em;
+            letter-spacing: 0.03em;
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        @media (min-width: 640px) {
+            .point-link {
+                padding: 18px 22px;
+                font-size: 17px;
+                letter-spacing: 0.05em;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .point-link {
+                padding: 20px 25px;
+                font-size: 18px;
+            }
         }
 
         .point-link:hover {
@@ -232,25 +281,24 @@
         @media (max-width: 768px) {
             .tag-navigation {
                 top: 10px;
-                gap: 8px;
+                gap: 6px;
             }
 
             .nav-tag {
-                padding: 10px 16px;
-                font-size: 14px;
+                padding: 8px 12px;
+                font-size: 13px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .point-icon {
+                font-size: 20px;
+                margin-right: 10px;
             }
 
-            .page-title {
-                font-size: 32px;
-            }
-
-            .points-container {
-                padding: 25px;
-            }
-
-            .point-link {
-                font-size: 16px;
-                padding: 15px 20px;
+            .nav-tag {
+                padding: 6px 10px;
+                font-size: 12px;
             }
         }
     </style>

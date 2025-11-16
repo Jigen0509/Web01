@@ -129,8 +129,14 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 2rem 1rem;
+            padding: 1rem;
             overflow: hidden;
+        }
+
+        @media (min-width: 640px) {
+            .explorer-container {
+                padding: 2rem 1rem;
+            }
         }
 
         .form-input {
@@ -283,20 +289,20 @@
         </div>
 
         <!-- Main Container -->
-        <div class="w-full max-w-md z-30 relative">
+        <div class="w-full max-w-md px-4 sm:px-0 z-30 relative">
             <!-- ヘッダー -->
-            <div class="text-center mb-8">
-                <h1 class="text-6xl font-black mb-2" style="font-family: 'Noto Sans JP', sans-serif; color: #86efac; text-shadow: 0 0 20px rgba(134, 239, 172, 0.5), 0 4px 6px rgba(0, 0, 0, 0.5);">
+            <div class="text-center mb-6 sm:mb-8">
+                <h1 class="text-4xl sm:text-5xl md:text-6xl font-black mb-2" style="font-family: 'Noto Sans JP', sans-serif; color: #86efac; text-shadow: 0 0 20px rgba(134, 239, 172, 0.5), 0 4px 6px rgba(0, 0, 0, 0.5);">
                     <span class="title-char">和</span><span class="title-char">白</span><span class="title-char">探</span><span class="title-char">検</span><span class="title-char">隊</span>
                 </h1>
-                <p class="text-lg font-medium mb-8" style="color: #a7f3d0; text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);">
+                <p class="text-base sm:text-lg font-medium mb-6 sm:mb-8" style="color: #a7f3d0; text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);">
                     森の冒険へようこそ
                 </p>
 
                 <!-- 冒険を始めるボタン -->
                 <button
                     id="startAdventureBtn"
-                    class="px-8 py-4 text-xl font-bold text-white bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 transition-all duration-300 transform hover:scale-110 shadow-2xl border-2 border-green-300"
+                    class="px-6 py-3 sm:px-8 sm:py-4 text-lg sm:text-xl font-bold text-white bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 transition-all duration-300 transform hover:scale-110 shadow-2xl border-2 border-green-300 w-full sm:w-auto"
                     style="letter-spacing: 0.1em; text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);">
                     🌲 冒険を始める 🌲
                 </button>
@@ -310,24 +316,24 @@
             @endif
 
             <!-- ログインカード(初期非表示) -->
-            <div id="loginCard" class="hidden bg-white/95 backdrop-blur-md p-8 shadow-xl" style="border: 2px solid rgba(134, 239, 172, 0.3);">
-                <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center" style="letter-spacing: 0.05em;">ログイン</h2>
+            <div id="loginCard" class="hidden bg-white/95 backdrop-blur-md p-4 sm:p-6 md:p-8 shadow-xl" style="border: 2px solid rgba(134, 239, 172, 0.3);">
+                <h2 class="text-xl sm:text-2xl font-bold text-gray-800 mb-4 sm:mb-6 text-center" style="letter-spacing: 0.05em;">ログイン</h2>
 
                 <!-- 認証エラーメッセージ -->
                 @if ($errors->any())
-                <div class="mb-6 p-4 bg-red-50 border-2 border-red-300 rounded-lg">
+                <div class="mb-4 sm:mb-6 p-3 sm:p-4 bg-red-50 border-2 border-red-300 rounded-lg">
                     <div class="flex items-start">
-                        <svg class="w-6 h-6 text-red-600 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg class="w-5 h-5 sm:w-6 sm:h-6 text-red-600 mr-2 sm:mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                         </svg>
                         <div class="flex-1">
-                            <h3 class="text-sm font-bold text-red-800 mb-2" style="letter-spacing: 0.05em;">ログインできませんでした</h3>
-                            <ul class="text-sm text-red-700 space-y-1">
+                            <h3 class="text-xs sm:text-sm font-bold text-red-800 mb-1 sm:mb-2" style="letter-spacing: 0.05em;">ログインできませんでした</h3>
+                            <ul class="text-xs sm:text-sm text-red-700 space-y-1">
                                 @foreach ($errors->all() as $error)
                                 <li style="letter-spacing: 0.03em;">• {{ $error }}</li>
                                 @endforeach
                             </ul>
-                            <p class="mt-3 text-sm text-red-600 font-medium" style="letter-spacing: 0.03em;">
+                            <p class="mt-2 sm:mt-3 text-xs sm:text-sm text-red-600 font-medium" style="letter-spacing: 0.03em;">
                                 💡 アカウントをお持ちでない場合は、下の「新規登録」ボタンから登録してください。
                             </p>
                         </div>
@@ -340,7 +346,7 @@
 
                     <!-- Email Address -->
                     <div>
-                        <label for="email" class="block text-sm font-medium text-gray-700 mb-2" style="letter-spacing: 0.05em;">
+                        <label for="email" class="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2" style="letter-spacing: 0.05em;">
                             メールアドレス
                         </label>
                         <input
@@ -351,16 +357,16 @@
                             required
                             autofocus
                             autocomplete="username"
-                            class="form-input block w-full px-4 py-3 text-base border-2 border-gray-300 bg-white focus:outline-none focus:border-green-500 transition-all"
+                            class="form-input block w-full px-3 py-2 sm:px-4 sm:py-3 text-sm sm:text-base border-2 border-gray-300 bg-white focus:outline-none focus:border-green-500 transition-all"
                             placeholder="your@example.com" />
                         @error('email')
-                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                        <p class="mt-1 sm:mt-2 text-xs sm:text-sm text-red-600">{{ $message }}</p>
                         @enderror
                     </div>
 
                     <!-- Password -->
                     <div>
-                        <label for="password" class="block text-sm font-medium text-gray-700 mb-2" style="letter-spacing: 0.05em;">
+                        <label for="password" class="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2" style="letter-spacing: 0.05em;">
                             パスワード
                         </label>
                         <input
@@ -369,34 +375,34 @@
                             type="password"
                             required
                             autocomplete="current-password"
-                            class="form-input block w-full px-4 py-3 text-base border-2 border-gray-300 bg-white focus:outline-none focus:border-green-500 transition-all"
+                            class="form-input block w-full px-3 py-2 sm:px-4 sm:py-3 text-sm sm:text-base border-2 border-gray-300 bg-white focus:outline-none focus:border-green-500 transition-all"
                             placeholder="パスワードを入力" />
                         @error('password')
-                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                        <p class="mt-1 sm:mt-2 text-xs sm:text-sm text-red-600">{{ $message }}</p>
                         @enderror
                     </div>
 
                     <!-- Submit Button -->
-                    <button type="submit" class="w-full py-3 px-4 text-base font-semibold text-white bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition-all duration-200 transform hover:scale-105 shadow-md" style="letter-spacing: 0.1em;">
+                    <button type="submit" class="w-full py-2 sm:py-3 px-3 sm:px-4 text-sm sm:text-base font-semibold text-white bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition-all duration-200 transform hover:scale-105 shadow-md" style="letter-spacing: 0.1em;">
                         ログイン
                     </button>
 
                     <!-- Links -->
-                    <div class="space-y-3 pt-2">
+                    <div class="space-y-2 sm:space-y-3 pt-2">
                         @if (Route::has('password.request'))
                         <div class="text-center">
-                            <a href="{{ route('password.request') }}" class="text-sm text-gray-600 hover:text-green-600 transition-colors" style="letter-spacing: 0.05em;">
+                            <a href="{{ route('password.request') }}" class="text-xs sm:text-sm text-gray-600 hover:text-green-600 transition-colors" style="letter-spacing: 0.05em;">
                                 パスワードをお忘れの方
                             </a>
                         </div>
                         @endif
 
                         @if (Route::has('register'))
-                        <div class="text-center pt-4 border-t border-gray-300">
-                            <p class="text-sm text-gray-600 mb-2" style="letter-spacing: 0.05em;">
+                        <div class="text-center pt-3 sm:pt-4 border-t border-gray-300">
+                            <p class="text-xs sm:text-sm text-gray-600 mb-2" style="letter-spacing: 0.05em;">
                                 アカウントをお持ちでない方
                             </p>
-                            <a href="{{ route('register') }}" class="inline-block px-6 py-2 text-sm font-medium text-green-600 hover:text-green-700 border-2 border-green-600 hover:bg-green-50 transition-all" style="letter-spacing: 0.05em;">
+                            <a href="{{ route('register') }}" class="inline-block px-4 sm:px-6 py-1.5 sm:py-2 text-xs sm:text-sm font-medium text-green-600 hover:text-green-700 border-2 border-green-600 hover:bg-green-50 transition-all" style="letter-spacing: 0.05em;">
                                 新規登録
                             </a>
                         </div>

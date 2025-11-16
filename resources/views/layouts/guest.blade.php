@@ -83,8 +83,14 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 2rem 1rem;
+            padding: 1rem;
             overflow: hidden;
+        }
+
+        @media (min-width: 640px) {
+            .explorer-container {
+                padding: 2rem 1rem;
+            }
         }
 
         .form-input {
@@ -178,8 +184,8 @@
         </div>
 
         <!-- メインコンテンツ -->
-        <div class="w-full max-w-md relative z-10">
-            <div class="bg-white/95 backdrop-blur-md p-8 shadow-xl" style="border: 2px solid rgba(134, 239, 172, 0.3);">
+        <div class="w-full max-w-md px-4 sm:px-0 relative z-10">
+            <div class="bg-white/95 backdrop-blur-md p-4 sm:p-6 md:p-8 shadow-xl" style="border: 2px solid rgba(134, 239, 172, 0.3);">
                 {{ $slot }}
             </div>
         </div>
