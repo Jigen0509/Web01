@@ -35,7 +35,6 @@
     },
     "scripts": {
         "post-install-cmd": [
-            "bash -c 'cp -r vendor src/ || true'",
             "@php artisan config:clear || true",
             "@php artisan cache:clear || true",
             "@php artisan view:clear || true",
