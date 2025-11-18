@@ -72,14 +72,17 @@ Route::delete('/posts/{post}', [PostController::class, 'destroy'])->name('posts.
 // クイズ一覧 (クイズの一覧表示)
 Route::get('/quizzes', [QuizController::class, 'index'])->name('quizzes.index');
 
+// クイズ選択 (クイズの選択画面表示) ※ {quiz}より前に配置
+Route::get('/quizzes/select', [QuizController::class, 'select'])->name('quizzes.select');
+
 // クイズ詳細 (特定のクイズの詳細表示)
 Route::get('/quizzes/{quiz}', [QuizController::class, 'show'])->name('quizzes.show');
 
-// クイズ選択 (クイズの選択画面表示)
-Route::get('/quizzes/select', [QuizController::class, 'select'])->name('quizzes.select');
-
 // クイズ開始 (クイズの開始処理)
 Route::post('/quizzes/start', [QuizController::class, 'start'])->name('quizzes.start');
+
+// クイズ回答送信 (特定ポイントのクイズ回答処理)
+Route::post('/quizzes/{pointId}/submit', [QuizController::class, 'submit'])->name('quizzes.submit')->middleware('auth');
 
 // --- ユーザーのポイントステータス関連ルート ---
 
