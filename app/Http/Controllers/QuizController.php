@@ -10,13 +10,6 @@ use Illuminate\Support\Facades\Auth;
 
 class QuizController extends Controller
 {
-    // クイズ一覧 (クイズの一覧表示)
-    public function index()
-    {
-        // ここにクイズ一覧を取得するロジックを実装
-        return view('quizzes.index'); // ビューを返す
-    }
-
     // クイズ詳細 (特定のクイズの詳細表示)  
     public function show($quiz)
     {
@@ -32,13 +25,6 @@ class QuizController extends Controller
         $point = $currentQuiz->point;
 
         return view('quizzes.show', compact('questions', 'point'));
-    }
-
-    // クイズ選択 (クイズの選択画面表示)
-    public function select()
-    {
-        // ここにクイズ選択画面を表示するロジックを実装
-        return view('quizzes.select'); // ビューを返すs
     }
 
     // クイズ開始 (クイズの開始処理)

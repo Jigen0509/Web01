@@ -69,12 +69,6 @@ Route::delete('/posts/{post}', [PostController::class, 'destroy'])->name('posts.
 
 // --- クイズ(quiz)関連ルート ---
 
-// クイズ一覧 (クイズの一覧表示)
-Route::get('/quizzes', [QuizController::class, 'index'])->name('quizzes.index');
-
-// クイズ選択 (クイズの選択画面表示) ※ {quiz}より前に配置
-Route::get('/quizzes/select', [QuizController::class, 'select'])->name('quizzes.select');
-
 // クイズ詳細 (特定のクイズの詳細表示)
 Route::get('/quizzes/{quiz}', [QuizController::class, 'show'])->name('quizzes.show');
 
