@@ -286,40 +286,64 @@
                 <p class="question-text">{{ $question->question_text }}</p>
 
                 <div class="options-container">
-                    @if($question->option1)
-                    <label class="option-label">
-                        <input type="radio"
-                            name="answer_{{ $question->id }}"
-                            value="{{ $question->option1 }}"
-                            class="option-radio"
-                            required>
-                        <span class="custom-checkbox"></span>
-                        <span class="option-text">{{ $question->option1 }}</span>
-                    </label>
-                    @endif
+                    @if($question->option1 || $question->option2 || $question->option3)
+                        {{-- 選択肢が設定されている場合 --}}
+                        @if($question->option1)
+                        <label class="option-label">
+                            <input type="radio"
+                                name="answer_{{ $question->id }}"
+                                value="{{ $question->option1 }}"
+                                class="option-radio"
+                                required>
+                            <span class="custom-checkbox"></span>
+                            <span class="option-text">{{ $question->option1 }}</span>
+                        </label>
+                        @endif
 
-                    @if($question->option2)
-                    <label class="option-label">
-                        <input type="radio"
-                            name="answer_{{ $question->id }}"
-                            value="{{ $question->option2 }}"
-                            class="option-radio"
-                            required>
-                        <span class="custom-checkbox"></span>
-                        <span class="option-text">{{ $question->option2 }}</span>
-                    </label>
-                    @endif
+                        @if($question->option2)
+                        <label class="option-label">
+                            <input type="radio"
+                                name="answer_{{ $question->id }}"
+                                value="{{ $question->option2 }}"
+                                class="option-radio"
+                                required>
+                            <span class="custom-checkbox"></span>
+                            <span class="option-text">{{ $question->option2 }}</span>
+                        </label>
+                        @endif
 
-                    @if($question->option3)
-                    <label class="option-label">
-                        <input type="radio"
-                            name="answer_{{ $question->id }}"
-                            value="{{ $question->option3 }}"
-                            class="option-radio"
-                            required>
-                        <span class="custom-checkbox"></span>
-                        <span class="option-text">{{ $question->option3 }}</span>
-                    </label>
+                        @if($question->option3)
+                        <label class="option-label">
+                            <input type="radio"
+                                name="answer_{{ $question->id }}"
+                                value="{{ $question->option3 }}"
+                                class="option-radio"
+                                required>
+                            <span class="custom-checkbox"></span>
+                            <span class="option-text">{{ $question->option3 }}</span>
+                        </label>
+                        @endif
+                    @else
+                        {{-- 選択肢がない場合は○×問題として表示 --}}
+                        <label class="option-label">
+                            <input type="radio"
+                                name="answer_{{ $question->id }}"
+                                value="〇"
+                                class="option-radio"
+                                required>
+                            <span class="custom-checkbox"></span>
+                            <span class="option-text">〇</span>
+                        </label>
+
+                        <label class="option-label">
+                            <input type="radio"
+                                name="answer_{{ $question->id }}"
+                                value="×"
+                                class="option-radio"
+                                required>
+                            <span class="custom-checkbox"></span>
+                            <span class="option-text">×</span>
+                        </label>
                     @endif
                 </div>
             </div>
