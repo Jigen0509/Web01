@@ -73,18 +73,13 @@ class QuizController extends Controller
                 [
                     'user_id' => $user->id,
                     'point_id' => $pointId
-                ],
-                [
-                    'point_earned' => 0,
-                    'visit_date' => now()
                 ]
             );
 
             // まだクリアしていない場合のみポイント付与
-            if (!$userPointStatus->is_cleared) {
-                $userPointStatus->point_earned = $pointsToEarn;
-                $userPointStatus->is_cleared = true;
-                $userPointStatus->clear_date = now();
+            if (!$userPointStatus->quiz_cleared) {
+                $userPointStatus->quiz_cleared = true;
+                $userPointStatus->quiz_clear_date = now();
                 $userPointStatus->save();
 
                 // ユーザーの総ポイントを更新
@@ -93,7 +88,7 @@ class QuizController extends Controller
                 // ランク更新
                 $totalPoints = Point::count();
                 $clearedPoints = UserPointStatus::where('user_id', $user->id)
-                    ->where('is_cleared', true)
+                    ->where('quiz_cleared', true)
                     ->count();
                 $clearRate = $totalPoints > 0 ? ($clearedPoints / $totalPoints) : 0;
 
