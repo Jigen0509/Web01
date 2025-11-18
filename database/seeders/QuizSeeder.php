@@ -12,6 +12,9 @@ class QuizSeeder extends Seeder
      */
     public function run(): void
     {
+        // 既存のクイズデータを削除（重複を防ぐため）
+        DB::table('quizzes')->truncate();
+        
         $quizzes = [
             // 和白干潟 (point_id: 1)
             ['point_id' => 1, 'question_text' => '和白干潟は、昔、塩を作るための「塩田」だった。', 'correct_answer' => '〇', 'option1' => null, 'option2' => null, 'option3' => null],
