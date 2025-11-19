@@ -30,10 +30,10 @@ class UserPointStatusController extends Controller
         $totalVisited = $userStatuses->count();
         $totalQuizCleared = $userStatuses->where('quiz_cleared', true)->count();
         $totalPhotoCleared = $userStatuses->where('photo_cleared', true)->count();
-        
+
         // 実際の投稿数を取得
         $totalPosts = Post::where('user_id', $user->id)->count();
-        
+
         // ユーザーの投稿一覧を取得（最新順、ポイント情報も含める）
         $userPosts = Post::where('user_id', $user->id)
             ->with('point')
@@ -69,20 +69,19 @@ class UserPointStatusController extends Controller
         // クリアしたミッション数
         $clearedMissions = $totalQuizCleared + $totalPhotoCleared;
 
-        // 達成率の計算（小数点切り捨て）
-        $completionRate = $totalMissions > 0 ? floor(($clearedMissions / $totalMissions) * 100) : 0;
-
-        // ランクの判定
-        if ($completionRate <= 29) {
-            $newRank = '駆け出しの探検家';
-        } elseif ($completionRate <= 69) {
-            $newRank = 'フィールド調査員';
-        } else {
-            $newRank = '和白の発見者';
-        }
-
         // ポイントの計算（クリアしたミッション数 × 10ポイント）
         $totalPoints = $clearedMissions * 10;
+
+        // ランクの判定（ポイント制）
+        if ($totalPoints < 50) {
+            $newRank = 'フィールド調査員';
+        } elseif ($totalPoints < 100) {
+            $newRank = 'エキスパート';
+        } elseif ($totalPoints < 150) {
+            $newRank = 'マスター';
+        } else {
+            $newRank = 'レジェンド';
+        }
 
         // ランクとポイントが変更された場合のみ更新
         if ($user->rank !== $newRank || $user->total_point !== $totalPoints) {
@@ -98,12 +97,13 @@ class UserPointStatusController extends Controller
     private function getRankImage($rank)
     {
         $imageMap = [
-            '駆け出しの探検家' => '/image/status1.png',
-            'フィールド調査員' => '/image/status2.png',
-            '和白の発見者' => '/image/status3.png',
+            'フィールド調査員' => asset('image/フィールド調査委員.png'),
+            'エキスパート' => asset('image/エキスパート.png'),
+            'マスター' => asset('image/マスター.png'),
+            'レジェンド' => asset('image/レジェンド.png'),
         ];
 
-        return $imageMap[$rank] ?? '/image/status1.png';
+        return $imageMap[$rank] ?? asset('image/フィールド調査委員.png');
     }
 
     // ユーザーのポイントステータス詳細

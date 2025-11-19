@@ -60,10 +60,13 @@
         }
 
         @keyframes sparkle-twinkle {
-            0%, 100% {
+
+            0%,
+            100% {
                 opacity: 0;
                 transform: scale(0);
             }
+
             50% {
                 opacity: 1;
                 transform: scale(1.5);
@@ -85,16 +88,22 @@
         }
 
         @keyframes float-firefly {
-            0%, 100% {
+
+            0%,
+            100% {
                 opacity: 0;
                 transform: translateY(0) translateX(0) rotate(0deg);
             }
-            10%, 90% {
+
+            10%,
+            90% {
                 opacity: 1;
             }
+
             50% {
                 transform: translateY(-50px) translateX(25px) rotate(180deg);
             }
+
             100% {
                 transform: translateY(-100px) translateX(50px) rotate(360deg);
             }
@@ -117,12 +126,15 @@
                 opacity: 0;
                 transform: translateX(0) scale(1);
             }
+
             10% {
                 opacity: 0.6;
             }
+
             90% {
                 opacity: 0.6;
             }
+
             100% {
                 bottom: 110%;
                 opacity: 0;
@@ -463,7 +475,7 @@
                 top: 15px;
                 left: 15px;
             }
-            
+
             .nav-button {
                 font-size: 14px;
                 padding: 8px 16px;
@@ -496,91 +508,91 @@
     @for($i = 0; $i < 30; $i++)
         <div class="sparkle" style="left: {{ rand(0, 100) }}%; top: {{ rand(0, 100) }}%; animation-delay: {{ rand(0, 30) / 10 }}s;">
         </div>
-    @endfor
+        @endfor
 
-    <!-- ホタルエフェクト -->
-    @for($i = 0; $i < 20; $i++)
-        <div class="firefly" style="left: {{ rand(0, 100) }}%; top: {{ rand(0, 100) }}%; animation-delay: {{ rand(0, 8) }}s;">
-        </div>
-    @endfor
-
-    <!-- 浮遊する泡 -->
-    @for($i = 0; $i < 15; $i++)
-        <div class="bubble" style="left: {{ rand(0, 100) }}%; width: {{ rand(20, 60) }}px; height: {{ rand(20, 60) }}px; animation-delay: {{ rand(0, 15) }}s;">
-        </div>
-    @endfor
-
-        <!-- ナビゲーションボタン -->
-        <div class="nav-buttons">
-            <a href="{{ route('user-point-status.index') }}" class="nav-button">
-                📊 ステータス
-            </a>
-            <a href="{{ route('points.index') }}" class="nav-button">
-                🗺️ ポイント一覧
-            </a>
-        </div>
-
-        <div class="container">
-            <!-- ヘッダー -->
-            <div class="header">
-                <h1>🗺️ 冒険の記録帳 🗺️</h1>
-                <p>みんなの素晴らしい冒険を見てみよう!</p>
+        <!-- ホタルエフェクト -->
+        @for($i = 0; $i < 20; $i++)
+            <div class="firefly" style="left: {{ rand(0, 100) }}%; top: {{ rand(0, 100) }}%; animation-delay: {{ rand(0, 8) }}s;">
             </div>
+            @endfor
 
-            <!-- 新規投稿ボタン -->
-            <div class="create-btn-wrapper">
-                <a href="{{ route('posts.create') }}" class="create-btn">
-                    ✏️ 新しい冒険を記録する ⭐
-                </a>
-            </div>
-
-            @if($posts->isEmpty())
-            <!-- 投稿がない場合 -->
-            <div class="empty-state">
-                <div class="empty-card">
-                    <div class="icon">🏴‍☠️</div>
-                    <h3>まだ冒険の記録がないよ!</h3>
-                    <p>君が最初の冒険者になろう!</p>
+            <!-- 浮遊する泡 -->
+            @for($i = 0; $i < 15; $i++)
+                <div class="bubble" style="left: {{ rand(0, 100) }}%; width: {{ rand(20, 60) }}px; height: {{ rand(20, 60) }}px; animation-delay: {{ rand(0, 15) }}s;">
                 </div>
-            </div>
-            @else
-            <!-- 投稿一覧 -->
-            <div class="posts-grid">
-                @foreach($posts as $post)
-                <div class="post-card">
-                    <!-- タイトル -->
-                    <h2 class="post-title">
-                        <a href="{{ route('posts.show', $post) }}">
-                            🏴‍☠️ {{ $post->title }}
-                        </a>
-                    </h2>
+                @endfor
 
-                    <!-- 日付 -->
-                    <div class="post-date">
-                        🧭 {{ $post->created_at->format('Y年m月d日') }}の冒険
-                    </div>
-
-                    <!-- 内容 -->
-                    <div class="post-content">
-                        <p>📖 {{ Str::limit($post->body, 80) }}</p>
-                    </div>
-
-                    <!-- 続きを読むボタン -->
-                    <a href="{{ route('posts.show', $post) }}" class="read-more">
-                        続きを読む 👀
+                <!-- ナビゲーションボタン -->
+                <div class="nav-buttons">
+                    <a href="{{ route('user-point-status.index') }}" class="nav-button">
+                        📊 ステータス
+                    </a>
+                    <a href="{{ route('points.index') }}" class="nav-button">
+                        🗺️ ポイント一覧
                     </a>
                 </div>
-                @endforeach
-            </div>
-            @endif
 
-            <!-- フッター -->
-            <div class="footer">
-                <div class="footer-message">
-                    <p>🌟 すべての冒険には価値がある!君の物語を聞かせて! 🌟</p>
+                <div class="container">
+                    <!-- ヘッダー -->
+                    <div class="header">
+                        <h1>🗺️ 冒険の記録帳 🗺️</h1>
+                        <p>みんなの素晴らしい冒険を見てみよう!</p>
+                    </div>
+
+                    <!-- 新規投稿ボタン -->
+                    <div class="create-btn-wrapper">
+                        <a href="{{ route('posts.create') }}" class="create-btn">
+                            ✏️ 新しい冒険を記録する ⭐
+                        </a>
+                    </div>
+
+                    @if($posts->isEmpty())
+                    <!-- 投稿がない場合 -->
+                    <div class="empty-state">
+                        <div class="empty-card">
+                            <div class="icon">🏴‍☠️</div>
+                            <h3>まだ冒険の記録がないよ!</h3>
+                            <p>君が最初の冒険者になろう!</p>
+                        </div>
+                    </div>
+                    @else
+                    <!-- 投稿一覧 -->
+                    <div class="posts-grid">
+                        @foreach($posts as $post)
+                        <div class="post-card">
+                            <!-- タイトル -->
+                            <h2 class="post-title">
+                                <a href="{{ route('posts.show', $post) }}">
+                                    🏴‍☠️ {{ $post->title }}
+                                </a>
+                            </h2>
+
+                            <!-- 日付 -->
+                            <div class="post-date">
+                                🧭 {{ $post->created_at->format('Y年m月d日') }}の冒険
+                            </div>
+
+                            <!-- 内容 -->
+                            <div class="post-content">
+                                <p>📖 {{ Str::limit($post->body, 80) }}</p>
+                            </div>
+
+                            <!-- 続きを読むボタン -->
+                            <a href="{{ route('posts.show', $post) }}" class="read-more">
+                                続きを読む 👀
+                            </a>
+                        </div>
+                        @endforeach
+                    </div>
+                    @endif
+
+                    <!-- フッター -->
+                    <div class="footer">
+                        <div class="footer-message">
+                            <p>🌟 すべての冒険には価値がある!君の物語を聞かせて! 🌟</p>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
 </body>
 
 </html>

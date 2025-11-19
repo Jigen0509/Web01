@@ -14,14 +14,14 @@ class CheckPosts extends Command
     {
         $total = Post::count();
         $this->info("Total posts: {$total}");
-        
+
         if ($total > 0) {
             $this->info("\nLatest 5 posts:");
-            Post::latest()->take(5)->get(['id', 'title', 'created_at'])->each(function($post) {
+            Post::latest()->take(5)->get(['id', 'title', 'created_at'])->each(function ($post) {
                 $this->line("ID:{$post->id} | {$post->title} | {$post->created_at}");
             });
         }
-        
+
         return 0;
     }
 }

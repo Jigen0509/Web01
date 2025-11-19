@@ -184,13 +184,18 @@
         }
 
         @keyframes float {
-            0%, 100% {
+
+            0%,
+            100% {
                 transform: translateY(0) translateX(0);
                 opacity: 0;
             }
-            10%, 90% {
+
+            10%,
+            90% {
                 opacity: 1;
             }
+
             50% {
                 transform: translateY(-100vh) translateX(50px);
             }
@@ -235,70 +240,70 @@
 
 <body>
     @for ($i = 0; $i < 30; $i++)
-    <div class="firefly" style="left: {{ rand(0, 100) }}%; top: {{ rand(0, 100) }}%; animation-delay: {{ rand(0, 8) }}s;">
-    </div>
-    @endfor
+        <div class="firefly" style="left: {{ rand(0, 100) }}%; top: {{ rand(0, 100) }}%; animation-delay: {{ rand(0, 8) }}s;">
+        </div>
+        @endfor
 
-    <!-- ナビゲーションボタン -->
-    <div class="nav-buttons">
-        <a href="{{ route('user-point-status.index') }}" class="nav-button">
-            📊 ステータス
-        </a>
-        <a href="{{ route('points.index') }}" class="nav-button">
-            🗺️ ポイント一覧
-        </a>
-    </div>
+        <!-- ナビゲーションボタン -->
+        <div class="nav-buttons">
+            <a href="{{ route('user-point-status.index') }}" class="nav-button">
+                📊 ステータス
+            </a>
+            <a href="{{ route('points.index') }}" class="nav-button">
+                🗺️ ポイント一覧
+            </a>
+        </div>
 
-    <div class="container">
-        <div class="post-card">
-            <div class="post-header">
-                <h1 class="post-title">📖 {{ $post->title }}</h1>
-                <div class="post-meta">
-                    @if($post->category)
-                    <span class="meta-item">🏷️ {{ $post->category }}</span>
-                    @endif
-                    <span class="meta-item">🗓️ {{ $post->created_at->format('Y年m月d日') }}</span>
-                    @if($post->user)
-                    <span class="meta-item">👤 {{ $post->user->name }}</span>
-                    @endif
+        <div class="container">
+            <div class="post-card">
+                <div class="post-header">
+                    <h1 class="post-title">📖 {{ $post->title }}</h1>
+                    <div class="post-meta">
+                        @if($post->category)
+                        <span class="meta-item">🏷️ {{ $post->category }}</span>
+                        @endif
+                        <span class="meta-item">🗓️ {{ $post->created_at->format('Y年m月d日') }}</span>
+                        @if($post->user)
+                        <span class="meta-item">👤 {{ $post->user->name }}</span>
+                        @endif
+                    </div>
+                </div>
+
+                @if(!empty($post->image_path))
+                <div style="margin-bottom: 30px;">
+                    <img src="{{ asset('storage/' . $post->image_path) }}"
+                        alt="{{ $post->title }}"
+                        style="width: 100%; max-height: 500px; object-fit: cover; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
+                </div>
+                @endif
+
+                <div class="post-body">
+                    {{ $post->body }}
+                </div>
+
+                @if($post->point)
+                <div class="post-point">
+                    <p style="font-size: 18px; margin: 0;">
+                        <span style="font-weight: 600;">🗺️ 探検した場所：</span>
+                        <a href="{{ route('points.show', $post->point->id) }}">
+                            📍 {{ $post->point->name }}
+                        </a>
+                    </p>
+                </div>
+                @endif
+
+                <div class="action-buttons">
+                    <a href="{{ route('posts.index') }}" class="btn btn-back">
+                        🔙 投稿一覧に戻る
+                    </a>
+                    @can('update', $post)
+                    <a href="{{ route('posts.edit', $post) }}" class="btn btn-edit">
+                        ✏️ 編集する
+                    </a>
+                    @endcan
                 </div>
             </div>
-
-            @if(!empty($post->image_path))
-            <div style="margin-bottom: 30px;">
-                <img src="{{ asset('storage/' . $post->image_path) }}"
-                     alt="{{ $post->title }}"
-                     style="width: 100%; max-height: 500px; object-fit: cover; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
-            </div>
-            @endif
-
-            <div class="post-body">
-                {{ $post->body }}
-            </div>
-
-            @if($post->point)
-            <div class="post-point">
-                <p style="font-size: 18px; margin: 0;">
-                    <span style="font-weight: 600;">🗺️ 探検した場所：</span>
-                    <a href="{{ route('points.show', $post->point->id) }}">
-                        📍 {{ $post->point->name }}
-                    </a>
-                </p>
-            </div>
-            @endif
-
-            <div class="action-buttons">
-                <a href="{{ route('posts.index') }}" class="btn btn-back">
-                    🔙 投稿一覧に戻る
-                </a>
-                @can('update', $post)
-                <a href="{{ route('posts.edit', $post) }}" class="btn btn-edit">
-                    ✏️ 編集する
-                </a>
-                @endcan
-            </div>
         </div>
-    </div>
 </body>
 
 </html>

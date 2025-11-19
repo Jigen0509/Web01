@@ -422,20 +422,20 @@
                             {{-- ボタン --}}
                             <div class="form-buttons">
                                 @if($point)
-                                    <a href="{{ route('points.show', $point) }}" class="btn btn-secondary">
-                                        🔙 ポイント詳細に戻る
-                                    </a>
+                                <a href="{{ route('points.show', $point) }}" class="btn btn-secondary">
+                                    🔙 ポイント詳細に戻る
+                                </a>
                                 @else
-                                    <a href="{{ route('posts.index') }}" class="btn btn-secondary">
-                                        🔙 やめる
-                                    </a>
+                                <a href="{{ route('posts.index') }}" class="btn btn-secondary">
+                                    🔙 やめる
+                                </a>
                                 @endif
                                 <button type="submit" class="btn btn-primary" id="submitBtn">
                                     📝 探検記録を保存する
                                 </button>
                             </div>
                         </form>
-                        
+
                         <script>
                             // フォーム送信時にボタンを無効化して二重送信を防ぐ
                             document.querySelector('form').addEventListener('submit', function(e) {
@@ -445,12 +445,13 @@
                                 submitBtn.style.opacity = '0.6';
                                 submitBtn.style.cursor = 'not-allowed';
                             });
-                            
+
                             // ページ読み込み時、ブラウザの戻るボタンで戻ってきた場合は投稿一覧にリダイレクト
                             window.addEventListener('pageshow', function(event) {
                                 if (event.persisted || (window.performance && window.performance.navigation.type === 2)) {
                                     // ブラウザの戻るボタンで戻ってきた場合
-                                    window.location.replace('{{ route('posts.index') }}');
+                                    window.location.replace('{{ route('
+                                        posts.index ') }}');
                                 }
                             });
                         </script>

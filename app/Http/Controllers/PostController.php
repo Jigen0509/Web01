@@ -65,9 +65,9 @@ class PostController extends Controller
             $post->user_id = auth()->id(); // ログインユーザーのID
             $post->image_path = ''; // 後で画像アップロード機能を実装
             $post->save();
-            
+
             \Log::info('Post created successfully', ['post_id' => $post->id, 'title' => $post->title]);
-            
+
             return redirect()->route('posts.index')->with('success', '投稿を作成しました');
         } catch (\Illuminate\Validation\ValidationException $e) {
             \Log::error('Validation failed', ['errors' => $e->errors()]);
@@ -137,7 +137,7 @@ class PostController extends Controller
         try {
             $post->delete();
             \Log::info('Post deleted successfully', ['post_id' => $post->id]);
-            
+
             return redirect()->route('user-point-status.index')->with('success', '投稿を削除しました');
         } catch (\Exception $e) {
             \Log::error('Post deletion failed', ['message' => $e->getMessage()]);

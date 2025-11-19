@@ -203,6 +203,20 @@
             filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.5));
         }
 
+        .rank-badge-large {
+            width: 180px;
+            height: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 120px;
+            background: linear-gradient(135deg, rgba(251, 191, 36, 0.2), rgba(245, 158, 11, 0.2));
+            border: 3px solid rgba(251, 191, 36, 0.5);
+            border-radius: 50%;
+            box-shadow: 0 10px 30px rgba(251, 191, 36, 0.3);
+            filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.5));
+        }
+
         .user-name {
             font-size: 28px;
             font-weight: 900;
@@ -764,12 +778,13 @@
         <div class="main-container">
             <div class="content-wrapper">
                 <h1 class="page-title">🏆 君の冒険記録 🏆</h1>
-                <p class="page-subtitle">📜 これまでの探検の成果を確認しよう 📜</p> <!-- ユーザー情報カード -->
+                <p class="page-subtitle">📜 これまでの探検の成果を確認しよう 📜</p>
+                <!-- ユーザー情報カード -->
                 <div class="user-info-card">
                     <div class="user-info-left">
                         <img src="{{ $rankImage }}" alt="{{ $user->rank }}" class="rank-image">
                         <div>
-                            <div class="user-rank-badge">👑 {{ $user->rank }}</div>
+                            <div class="user-rank-badge">{{ $user->rank }}</div>
                             <div class="user-name">{{ $user->name }}</div>
                             <div class="user-points">
                                 <span>⭐</span>
@@ -937,49 +952,49 @@
                 {{-- 自分の投稿一覧セクション --}}
                 <div class="records-card" style="margin-top: 30px;">
                     <h2 class="records-title">自分の投稿一覧</h2>
-                    
+
                     @if($userPosts->count() > 0)
-                        <div style="display: grid; gap: 20px;">
-                            @foreach($userPosts as $post)
-                                <div class="record-card">
-                                    <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 15px; flex-wrap: wrap; gap: 10px;">
-                                        <div style="flex: 1; min-width: 200px;">
-                                            <h3 style="margin: 0 0 10px 0; font-size: 20px; color: #1f2937; font-weight: 600;">
-                                                {{ $post->title }}
-                                            </h3>
-                                            <div class="record-meta">
-                                                <span class="record-date">{{ $post->created_at->format('Y年m月d日') }}</span>
-                                                @if($post->point)
-                                                    <span class="record-point">{{ $post->point->name }}</span>
-                                                @endif
-                                            </div>
-                                        </div>
-                                        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-                                            <a href="{{ route('posts.edit', $post) }}" class="btn-edit">
-                                                ✏️ 編集
-                                            </a>
-                                            <form action="{{ route('posts.destroy', $post) }}" method="POST" 
-                                                  onsubmit="return confirm('本当にこの投稿を削除しますか？');"
-                                                  style="margin: 0;">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn-delete">
-                                                    🗑️ 削除
-                                                </button>
-                                            </form>
-                                        </div>
+                    <div style="display: grid; gap: 20px;">
+                        @foreach($userPosts as $post)
+                        <div class="record-card">
+                            <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 15px; flex-wrap: wrap; gap: 10px;">
+                                <div style="flex: 1; min-width: 200px;">
+                                    <h3 style="margin: 0 0 10px 0; font-size: 20px; color: #1f2937; font-weight: 600;">
+                                        {{ $post->title }}
+                                    </h3>
+                                    <div class="record-meta">
+                                        <span class="record-date">{{ $post->created_at->format('Y年m月d日') }}</span>
+                                        @if($post->point)
+                                        <span class="record-point">{{ $post->point->name }}</span>
+                                        @endif
                                     </div>
-                                    <p class="record-body">
-                                        {{ Str::limit($post->body, 150) }}
-                                    </p>
                                 </div>
-                            @endforeach
+                                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                                    <a href="{{ route('posts.edit', $post) }}" class="btn-edit">
+                                        ✏️ 編集
+                                    </a>
+                                    <form action="{{ route('posts.destroy', $post) }}" method="POST"
+                                        onsubmit="return confirm('本当にこの投稿を削除しますか？');"
+                                        style="margin: 0;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn-delete">
+                                            🗑️ 削除
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                            <p class="record-body">
+                                {{ Str::limit($post->body, 150) }}
+                            </p>
                         </div>
+                        @endforeach
+                    </div>
                     @else
-                        <div class="empty-state">
-                            <p style="font-size: 18px; margin: 0; font-weight: 600;">まだ投稿がありません</p>
-                            <p style="margin: 10px 0 0 0;">探索した場所から投稿を作成してみましょう！</p>
-                        </div>
+                    <div class="empty-state">
+                        <p style="font-size: 18px; margin: 0; font-weight: 600;">まだ投稿がありません</p>
+                        <p style="margin: 10px 0 0 0;">探索した場所から投稿を作成してみましょう！</p>
+                    </div>
                     @endif
                 </div>
 
