@@ -825,7 +825,7 @@
                             <span class="badge badge-cleared">
                                 クイズクリア
                                 @if($status->quiz_clear_date)
-                                ({{ \Carbon\Carbon::parse($status->quiz_clear_date)->format('m/d') }})
+                                ({{ \Carbon\Carbon::parse($status->quiz_clear_date)->format('n月j日') }})
                                 @endif
                             </span>
                             @else
@@ -838,7 +838,7 @@
                             <span class="badge badge-cleared">
                                 写真投稿済み
                                 @if($status->photo_clear_date)
-                                ({{ \Carbon\Carbon::parse($status->photo_clear_date)->format('m/d') }})
+                                ({{ \Carbon\Carbon::parse($status->photo_clear_date)->format('n月j日') }})
                                 @endif
                             </span>
                             @else
@@ -880,7 +880,7 @@
                                         @if($status->quiz_cleared)
                                         ✅ クリア済み
                                         @if($status->quiz_clear_date)
-                                        ({{ \Carbon\Carbon::parse($status->quiz_clear_date)->format('m/d') }})
+                                        ({{ \Carbon\Carbon::parse($status->quiz_clear_date)->format('n月j日') }})
                                         @endif
                                         @else
                                         📝 未挑戦
@@ -904,7 +904,7 @@
                                         @if($status->photo_cleared)
                                         ✅ クリア済み
                                         @if($status->photo_clear_date)
-                                        ({{ \Carbon\Carbon::parse($status->photo_clear_date)->format('m/d') }})
+                                        ({{ \Carbon\Carbon::parse($status->photo_clear_date)->format('n月j日') }})
                                         @endif
                                         @else
                                         📝 未挑戦
