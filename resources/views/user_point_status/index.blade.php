@@ -20,7 +20,7 @@
             min-height: 100vh;
             position: relative;
             overflow-x: hidden;
-            background-image: url('/image/status.png');
+            background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 25%, #3b82f6 50%, #60a5fa 75%, #93c5fd 100%);
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
