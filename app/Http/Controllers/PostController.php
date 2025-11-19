@@ -68,7 +68,7 @@ class PostController extends Controller
             
             \Log::info('Post created successfully', ['post_id' => $post->id, 'title' => $post->title]);
             
-            return redirect()->route('posts.show', $post)->with('success', '投稿を作成しました');
+            return redirect()->route('posts.index')->with('success', '投稿を作成しました');
         } catch (\Illuminate\Validation\ValidationException $e) {
             \Log::error('Validation failed', ['errors' => $e->errors()]);
             return back()->withErrors($e->errors())->withInput();
