@@ -52,6 +52,65 @@
             z-index: -1;
         }
 
+        /* 波のアニメーション */
+        .wave {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 200%;
+            height: 150px;
+            background: linear-gradient(90deg, rgba(16, 185, 129, 0.3), rgba(5, 150, 105, 0.3));
+            border-radius: 1000px 1000px 0 0;
+            animation: wave-move 10s ease-in-out infinite;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .wave:nth-child(2) {
+            bottom: -10px;
+            opacity: 0.5;
+            animation: wave-move 8s ease-in-out infinite reverse;
+        }
+
+        .wave:nth-child(3) {
+            bottom: -20px;
+            opacity: 0.3;
+            animation: wave-move 6s ease-in-out infinite;
+        }
+
+        @keyframes wave-move {
+            0%, 100% {
+                transform: translateX(0);
+            }
+            50% {
+                transform: translateX(-50%);
+            }
+        }
+
+        /* キラキラエフェクト */
+        .sparkle {
+            position: fixed;
+            width: 3px;
+            height: 3px;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+            animation: sparkle-twinkle 3s ease-in-out infinite;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        @keyframes sparkle-twinkle {
+            0%, 100% {
+                opacity: 0;
+                transform: scale(0);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.5);
+            }
+        }
+
         /* ホタルエフェクト */
         .firefly {
             position: fixed;
@@ -67,20 +126,48 @@
         }
 
         @keyframes float-firefly {
-
-            0%,
-            100% {
+            0%, 100% {
                 opacity: 0;
-                transform: translateY(0) translateX(0);
+                transform: translateY(0) translateX(0) rotate(0deg);
             }
-
-            10%,
-            90% {
+            10%, 90% {
                 opacity: 1;
             }
-
+            50% {
+                transform: translateY(-50px) translateX(25px) rotate(180deg);
+            }
             100% {
-                transform: translateY(-100px) translateX(50px);
+                transform: translateY(-100px) translateX(50px) rotate(360deg);
+            }
+        }
+
+        /* 浮遊する泡 */
+        .bubble {
+            position: fixed;
+            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.8), rgba(134, 239, 172, 0.3));
+            border-radius: 50%;
+            animation: bubble-rise 15s ease-in infinite;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.6;
+        }
+
+        @keyframes bubble-rise {
+            0% {
+                bottom: -100px;
+                opacity: 0;
+                transform: translateX(0) scale(1);
+            }
+            10% {
+                opacity: 0.6;
+            }
+            90% {
+                opacity: 0.6;
+            }
+            100% {
+                bottom: 110%;
+                opacity: 0;
+                transform: translateX(100px) scale(1.2);
             }
         }
 
@@ -446,11 +533,28 @@
 </head>
 
 <body>
+    <!-- 波のアニメーション -->
+    <div class="wave"></div>
+    <div class="wave"></div>
+    <div class="wave"></div>
+
+    <!-- キラキラエフェクト -->
+    @for($i = 0; $i < 30; $i++)
+        <div class="sparkle" style="left: {{ rand(0, 100) }}%; top: {{ rand(0, 100) }}%; animation-delay: {{ rand(0, 30) / 10 }}s;">
+        </div>
+    @endfor
+
     <!-- ホタルエフェクト -->
     @for($i = 0; $i < 20; $i++)
         <div class="firefly" style="left: {{ rand(0, 100) }}%; top: {{ rand(0, 100) }}%; animation-delay: {{ rand(0, 8) }}s;">
         </div>
-        @endfor
+    @endfor
+
+    <!-- 浮遊する泡 -->
+    @for($i = 0; $i < 15; $i++)
+        <div class="bubble" style="left: {{ rand(0, 100) }}%; width: {{ rand(20, 60) }}px; height: {{ rand(20, 60) }}px; animation-delay: {{ rand(0, 15) }}s;">
+        </div>
+    @endfor
 
         <!-- ナビゲーションボタン -->
         <div class="nav-buttons">
