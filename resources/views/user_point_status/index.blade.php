@@ -549,6 +549,101 @@
             cursor: not-allowed;
         }
 
+        /* 投稿一覧用のスタイル */
+        .record-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .record-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .record-meta {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .record-date {
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        .record-point {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .record-body {
+            margin: 0;
+            color: #374151;
+            line-height: 1.6;
+            font-size: 15px;
+        }
+
+        .btn-edit {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-edit:hover {
+            background: linear-gradient(135deg, #d97706, #b45309);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4);
+        }
+
+        .btn-delete {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .btn-delete:hover {
+            background: linear-gradient(135deg, #dc2626, #b91c1c);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            color: #6b7280;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 12px;
+            border: 2px dashed rgba(209, 213, 219, 0.5);
+        }
+
         .btn-mission.completed:hover {
             transform: none;
             box-shadow: none;
@@ -841,27 +936,26 @@
 
                 {{-- 自分の投稿一覧セクション --}}
                 <div class="records-card" style="margin-top: 30px;">
-                    <h2 class="records-title">📝 自分の投稿一覧</h2>
+                    <h2 class="records-title">自分の投稿一覧</h2>
                     
                     @if($userPosts->count() > 0)
                         <div style="display: grid; gap: 20px;">
                             @foreach($userPosts as $post)
-                                <div style="background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-                                    <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 15px;">
-                                        <div style="flex: 1;">
-                                            <h3 style="margin: 0 0 10px 0; font-size: 20px; color: #1f2937;">
+                                <div class="record-card">
+                                    <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 15px; flex-wrap: wrap; gap: 10px;">
+                                        <div style="flex: 1; min-width: 200px;">
+                                            <h3 style="margin: 0 0 10px 0; font-size: 20px; color: #1f2937; font-weight: 600;">
                                                 {{ $post->title }}
                                             </h3>
-                                            <p style="margin: 0; color: #6b7280; font-size: 14px;">
-                                                🗓️ {{ $post->created_at->format('Y年m月d日') }}
+                                            <div class="record-meta">
+                                                <span class="record-date">{{ $post->created_at->format('Y年m月d日') }}</span>
                                                 @if($post->point)
-                                                    | 📍 {{ $post->point->name }}
+                                                    <span class="record-point">{{ $post->point->name }}</span>
                                                 @endif
-                                            </p>
+                                            </div>
                                         </div>
-                                        <div style="display: flex; gap: 10px;">
-                                            <a href="{{ route('posts.edit', $post) }}" 
-                                               style="background: linear-gradient(135deg, #f59e0b, #d97706); color: white; padding: 8px 16px; border-radius: 8px; text-decoration: none; font-size: 14px; font-weight: 600; transition: all 0.3s;">
+                                        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                                            <a href="{{ route('posts.edit', $post) }}" class="btn-edit">
                                                 ✏️ 編集
                                             </a>
                                             <form action="{{ route('posts.destroy', $post) }}" method="POST" 
@@ -869,22 +963,21 @@
                                                   style="margin: 0;">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" 
-                                                        style="background: linear-gradient(135deg, #ef4444, #dc2626); color: white; padding: 8px 16px; border-radius: 8px; border: none; cursor: pointer; font-size: 14px; font-weight: 600; transition: all 0.3s;">
+                                                <button type="submit" class="btn-delete">
                                                     🗑️ 削除
                                                 </button>
                                             </form>
                                         </div>
                                     </div>
-                                    <p style="margin: 0; color: #374151; line-height: 1.6;">
+                                    <p class="record-body">
                                         {{ Str::limit($post->body, 150) }}
                                     </p>
                                 </div>
                             @endforeach
                         </div>
                     @else
-                        <div style="text-align: center; padding: 40px; color: #6b7280;">
-                            <p style="font-size: 18px; margin: 0;">まだ投稿がありません</p>
+                        <div class="empty-state">
+                            <p style="font-size: 18px; margin: 0; font-weight: 600;">まだ投稿がありません</p>
                             <p style="margin: 10px 0 0 0;">探索した場所から投稿を作成してみましょう！</p>
                         </div>
                     @endif
