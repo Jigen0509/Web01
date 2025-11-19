@@ -29,16 +29,10 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: url('{{ asset("image/posts.png") }}');
-        }
-        });
-        }
-        });
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-        z-index: -2;
+            background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 25%, #3b82f6 50%, #60a5fa 75%, #93c5fd 100%);
+            background-size: cover;
+            background-position: center;
+            z-index: -2;
         }
 
         body::after {
