@@ -42,24 +42,43 @@ class PostController extends Controller
     // 投稿保存 (新規投稿の保存)
     public function store(Request $request)
     {
-        // バリデーション
-        $validated = $request->validate([
-            'title' => 'required|max:255',
-            'body' => 'required|max:255',
-            'point_id' => 'required|exists:points,id',
-            // image_path は後で実装予定
-        ]);
+        try {
+            // バリデーション
+            $validated = $request->validate([
+                'title' => 'required|max:255',
+                'body' => 'required|max:255',
+                'point_id' => 'required|exists:points,id',
+                // image_path は後で実装予定
+            ]);
 
-        // 投稿の作成
-        $post = new Post();
-        $post->title = $validated['title'];
-        $post->body = $validated['body'];
-        $post->category = ''; // カテゴリは空文字列を設定
-        $post->point_id = $validated['point_id'];
-        $post->user_id = auth()->id(); // ログインユーザーのID
-        $post->image_path = ''; // 後で画像アップロード機能を実装
-        $post->save();
-        return redirect()->route('posts.show', $post)->with('success', '投稿を作成しました');
+            // ユーザー認証確認
+            if (!auth()->check()) {
+                return redirect()->route('login')->with('error', 'ログインが必要です');
+            }
+
+            // 投稿の作成
+            $post = new Post();
+            $post->title = $validated['title'];
+            $post->body = $validated['body'];
+            $post->category = ''; // カテゴリは空文字列を設定
+            $post->point_id = $validated['point_id'];
+            $post->user_id = auth()->id(); // ログインユーザーのID
+            $post->image_path = ''; // 後で画像アップロード機能を実装
+            $post->save();
+            
+            \Log::info('Post created successfully', ['post_id' => $post->id, 'title' => $post->title]);
+            
+            return redirect()->route('posts.show', $post)->with('success', '投稿を作成しました');
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            \Log::error('Validation failed', ['errors' => $e->errors()]);
+            return back()->withErrors($e->errors())->withInput();
+        } catch (\Exception $e) {
+            \Log::error('Post creation failed', [
+                'message' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
+            return back()->with('error', '投稿の作成に失敗しました: ' . $e->getMessage())->withInput();
+        }
     }
 
     // 投稿編集 (特定の投稿の編集フォーム表示)

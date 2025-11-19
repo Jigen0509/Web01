@@ -349,6 +349,19 @@
                 <p class="page-subtitle">君の探検の発見や体験をみんなに共有しよう！</p>
 
                 <div class="form-card">
+                    {{-- 全体のエラーメッセージ --}}
+                    @if(session('error'))
+                    <div style="background: rgba(239, 68, 68, 0.2); border: 2px solid #ef4444; padding: 20px; margin-bottom: 20px; color: #fbbf24; font-weight: 700;">
+                        ⚠️ {{ session('error') }}
+                    </div>
+                    @endif
+
+                    @if(session('success'))
+                    <div style="background: rgba(16, 185, 129, 0.2); border: 2px solid #10b981; padding: 20px; margin-bottom: 20px; color: #86efac; font-weight: 700;">
+                        ✅ {{ session('success') }}
+                    </div>
+                    @endif
+
                     <div class="form-card">
                         <form action="{{ route('posts.store') }}" method="POST">
                             @csrf
