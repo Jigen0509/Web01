@@ -46,41 +46,6 @@
             z-index: -1;
         }
 
-        /* 波のアニメーション */
-        .wave {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 200%;
-            height: 150px;
-            background: linear-gradient(90deg, rgba(16, 185, 129, 0.3), rgba(5, 150, 105, 0.3));
-            border-radius: 1000px 1000px 0 0;
-            animation: wave-move 10s ease-in-out infinite;
-            z-index: 0;
-            pointer-events: none;
-        }
-
-        .wave:nth-child(2) {
-            bottom: -10px;
-            opacity: 0.5;
-            animation: wave-move 8s ease-in-out infinite reverse;
-        }
-
-        .wave:nth-child(3) {
-            bottom: -20px;
-            opacity: 0.3;
-            animation: wave-move 6s ease-in-out infinite;
-        }
-
-        @keyframes wave-move {
-            0%, 100% {
-                transform: translateX(0);
-            }
-            50% {
-                transform: translateX(-50%);
-            }
-        }
-
         /* キラキラエフェクト */
         .sparkle {
             position: fixed;
@@ -527,11 +492,6 @@
 </head>
 
 <body>
-    <!-- 波のアニメーション -->
-    <div class="wave"></div>
-    <div class="wave"></div>
-    <div class="wave"></div>
-
     <!-- キラキラエフェクト -->
     @for($i = 0; $i < 30; $i++)
         <div class="sparkle" style="left: {{ rand(0, 100) }}%; top: {{ rand(0, 100) }}%; animation-delay: {{ rand(0, 30) / 10 }}s;">
