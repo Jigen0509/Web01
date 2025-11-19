@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\UserPointStatus;
-
+use App\Models\Post;
 use Illuminate\Http\Request;
 
 class UserPointStatusController extends Controller
@@ -30,6 +30,9 @@ class UserPointStatusController extends Controller
         $totalVisited = $userStatuses->count();
         $totalQuizCleared = $userStatuses->where('quiz_cleared', true)->count();
         $totalPhotoCleared = $userStatuses->where('photo_cleared', true)->count();
+        
+        // 実際の投稿数を取得
+        $totalPosts = Post::where('user_id', $user->id)->count();
 
         // ランクとポイントの計算
         $this->updateUserRankAndPoints($user, $totalVisited, $totalQuizCleared, $totalPhotoCleared);
@@ -43,6 +46,7 @@ class UserPointStatusController extends Controller
             'totalVisited',
             'totalQuizCleared',
             'totalPhotoCleared',
+            'totalPosts',
             'rankImage'
         ));
     }
