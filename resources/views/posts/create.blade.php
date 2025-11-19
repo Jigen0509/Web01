@@ -439,6 +439,14 @@
                                 submitBtn.style.opacity = '0.6';
                                 submitBtn.style.cursor = 'not-allowed';
                             });
+                            
+                            // ページ読み込み時、ブラウザの戻るボタンで戻ってきた場合は投稿一覧にリダイレクト
+                            window.addEventListener('pageshow', function(event) {
+                                if (event.persisted || (window.performance && window.performance.navigation.type === 2)) {
+                                    // ブラウザの戻るボタンで戻ってきた場合
+                                    window.location.replace('{{ route('posts.index') }}');
+                                }
+                            });
                         </script>
                     </div>
                 </div>
