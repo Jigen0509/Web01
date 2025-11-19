@@ -424,11 +424,22 @@
                                 <a href="{{ route('posts.index') }}" class="btn btn-secondary">
                                     🔙 やめる
                                 </a>
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn btn-primary" id="submitBtn">
                                     📝 探検記録を保存する
                                 </button>
                             </div>
                         </form>
+                        
+                        <script>
+                            // フォーム送信時にボタンを無効化して二重送信を防ぐ
+                            document.querySelector('form').addEventListener('submit', function(e) {
+                                const submitBtn = document.getElementById('submitBtn');
+                                submitBtn.disabled = true;
+                                submitBtn.textContent = '📝 保存中...';
+                                submitBtn.style.opacity = '0.6';
+                                submitBtn.style.cursor = 'not-allowed';
+                            });
+                        </script>
                     </div>
                 </div>
             </div>
