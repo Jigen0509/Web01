@@ -33,6 +33,12 @@ class UserPointStatusController extends Controller
         
         // 実際の投稿数を取得
         $totalPosts = Post::where('user_id', $user->id)->count();
+        
+        // ユーザーの投稿一覧を取得（最新順、ポイント情報も含める）
+        $userPosts = Post::where('user_id', $user->id)
+            ->with('point')
+            ->latest()
+            ->get();
 
         // ランクとポイントの計算
         $this->updateUserRankAndPoints($user, $totalVisited, $totalQuizCleared, $totalPhotoCleared);
@@ -47,6 +53,7 @@ class UserPointStatusController extends Controller
             'totalQuizCleared',
             'totalPhotoCleared',
             'totalPosts',
+            'userPosts',
             'rankImage'
         ));
     }

@@ -839,6 +839,57 @@
                     @endif
                 </div>
 
+                {{-- 自分の投稿一覧セクション --}}
+                <div class="records-card" style="margin-top: 30px;">
+                    <h2 class="records-title">📝 自分の投稿一覧</h2>
+                    
+                    @if($userPosts->count() > 0)
+                        <div style="display: grid; gap: 20px;">
+                            @foreach($userPosts as $post)
+                                <div style="background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                                    <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 15px;">
+                                        <div style="flex: 1;">
+                                            <h3 style="margin: 0 0 10px 0; font-size: 20px; color: #1f2937;">
+                                                {{ $post->title }}
+                                            </h3>
+                                            <p style="margin: 0; color: #6b7280; font-size: 14px;">
+                                                🗓️ {{ $post->created_at->format('Y年m月d日') }}
+                                                @if($post->point)
+                                                    | 📍 {{ $post->point->name }}
+                                                @endif
+                                            </p>
+                                        </div>
+                                        <div style="display: flex; gap: 10px;">
+                                            <a href="{{ route('posts.edit', $post) }}" 
+                                               style="background: linear-gradient(135deg, #f59e0b, #d97706); color: white; padding: 8px 16px; border-radius: 8px; text-decoration: none; font-size: 14px; font-weight: 600; transition: all 0.3s;">
+                                                ✏️ 編集
+                                            </a>
+                                            <form action="{{ route('posts.destroy', $post) }}" method="POST" 
+                                                  onsubmit="return confirm('本当にこの投稿を削除しますか？');"
+                                                  style="margin: 0;">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" 
+                                                        style="background: linear-gradient(135deg, #ef4444, #dc2626); color: white; padding: 8px 16px; border-radius: 8px; border: none; cursor: pointer; font-size: 14px; font-weight: 600; transition: all 0.3s;">
+                                                    🗑️ 削除
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <p style="margin: 0; color: #374151; line-height: 1.6;">
+                                        {{ Str::limit($post->body, 150) }}
+                                    </p>
+                                </div>
+                            @endforeach
+                        </div>
+                    @else
+                        <div style="text-align: center; padding: 40px; color: #6b7280;">
+                            <p style="font-size: 18px; margin: 0;">まだ投稿がありません</p>
+                            <p style="margin: 10px 0 0 0;">探索した場所から投稿を作成してみましょう！</p>
+                        </div>
+                    @endif
+                </div>
+
                 <div style="text-align: center; margin-top: 40px;">
                     <a href="{{ route('points.index') }}" class="btn btn-primary">
                         📍 探索ポイント一覧に戻る

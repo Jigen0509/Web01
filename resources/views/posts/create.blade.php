@@ -421,9 +421,15 @@
 
                             {{-- ボタン --}}
                             <div class="form-buttons">
-                                <a href="{{ route('posts.index') }}" class="btn btn-secondary">
-                                    🔙 やめる
-                                </a>
+                                @if($point)
+                                    <a href="{{ route('points.show', $point) }}" class="btn btn-secondary">
+                                        🔙 ポイント詳細に戻る
+                                    </a>
+                                @else
+                                    <a href="{{ route('posts.index') }}" class="btn btn-secondary">
+                                        🔙 やめる
+                                    </a>
+                                @endif
                                 <button type="submit" class="btn btn-primary" id="submitBtn">
                                     📝 探検記録を保存する
                                 </button>
