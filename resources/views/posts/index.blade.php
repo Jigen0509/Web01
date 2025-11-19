@@ -297,12 +297,17 @@
             box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
         }
 
-        /* 戻るボタン */
-        .back-button {
+        /* ナビゲーションボタン */
+        .nav-buttons {
             position: fixed;
             top: 20px;
             left: 20px;
             z-index: 1000;
+            display: flex;
+            gap: 10px;
+        }
+
+        .nav-button {
             display: inline-block;
             background: rgba(16, 185, 129, 0.6);
             backdrop-filter: blur(10px);
@@ -317,7 +322,7 @@
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
         }
 
-        .back-button:hover {
+        .nav-button:hover {
             background: rgba(16, 185, 129, 0.8);
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
@@ -406,10 +411,16 @@
                 font-size: 16px;
             }
 
-            /* 戻るボタンのスマホ調整 */
-            .back-button {
-                padding: 10px 20px;
-                font-size: 16px;
+            /* ナビゲーションボタンのスマホ調整 */
+            .nav-buttons {
+                flex-direction: column;
+                top: 15px;
+                left: 15px;
+            }
+            
+            .nav-button {
+                font-size: 14px;
+                padding: 8px 16px;
             }
         }
 
@@ -441,10 +452,15 @@
         </div>
         @endfor
 
-        <!-- 戻るボタン -->
-        <a href="javascript:history.back()" class="back-button">
-            ← 戻る
-        </a>
+        <!-- ナビゲーションボタン -->
+        <div class="nav-buttons">
+            <a href="{{ route('user-point-status.index') }}" class="nav-button">
+                📊 ステータス
+            </a>
+            <a href="{{ route('points.index') }}" class="nav-button">
+                🗺️ ポイント一覧
+            </a>
+        </div>
 
         <div class="container">
             <!-- ヘッダー -->
