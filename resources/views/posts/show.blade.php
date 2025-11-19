@@ -1,160 +1,304 @@
-<x-app-layout>
-    <div class="min-h-screen" style="background: linear-gradient(135deg, #87CEEB 0%, #98FB98 50%, #F0E68C 100%);">
-        <div class="mx-auto w-[900px] px-4 py-8">
+<!DOCTYPE html>
+<html lang="ja">
 
-            {{-- ページトップの装飾 --}}
-            <div class="text-center mb-8">
-                <h1 class="text-5xl font-bold text-amber-800 mb-4" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">
-                    📖 冒険の記録を読もう！ 🗺️
-                </h1>
-            </div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ $post->title }} - 和白探検隊</title>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-            {{-- 冒険記録カード --}}
-            <div class="bg-gradient-to-br from-yellow-50 to-orange-50 shadow-2xl rounded-3xl overflow-hidden
-                       border-4 border-amber-400 relative">
-                
-                <!-- 装飾アイコン -->
-                <div class="absolute top-4 right-4 text-4xl opacity-20">🏴‍☠️</div>
-                <div class="absolute bottom-4 left-4 text-3xl opacity-20">🧭</div>
-                <div class="absolute top-1/4 right-8 text-2xl opacity-20">⭐</div>
-                <div class="absolute bottom-1/4 left-8 text-2xl opacity-20">💎</div>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
 
-                {{-- メタ情報:カテゴリと投稿日時 --}}
-                <div class="flex items-center justify-between p-6 bg-gradient-to-r from-amber-100 to-yellow-100 border-b-3 border-amber-300">
-                    <div class="flex items-center gap-3">
-                        <span class="inline-block bg-gradient-to-r from-blue-400 to-purple-500 text-white text-lg font-bold px-6 py-2 rounded-full shadow-lg">
-                            🏷️ {{ $post->category }}
-                        </span>
-                    </div>
-                    <div class="bg-white rounded-full px-4 py-2 shadow-md border-2 border-amber-300">
-                        <span class="text-amber-800 text-lg font-bold flex items-center gap-2">
-                            🗓️ {{ $post->created_at->format('Y年m月d日') }}の冒険
-                        </span>
-                    </div>
-                </div>
+        /* ナビゲーションボタン */
+        .nav-buttons {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            display: flex;
+            gap: 10px;
+        }
 
-                <div class="p-8">
-                    {{-- 投稿タイトル --}}
-                    <div class="text-center mb-8">
-                        <div class="bg-gradient-to-r from-red-400 to-pink-400 text-white rounded-2xl p-6 shadow-xl border-3 border-red-300">
-                            <h2 class="text-4xl font-bold leading-tight" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">
-                                🌟 {{ $post->title }} 🌟
-                            </h2>
-                        </div>
-                    </div>
+        .nav-button {
+            display: inline-block;
+            background: rgba(16, 185, 129, 0.6);
+            backdrop-filter: blur(10px);
+            color: #ffffff;
+            font-size: 18px;
+            font-weight: 700;
+            padding: 12px 30px;
+            border: 2px solid rgba(134, 239, 172, 0.5);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
 
-                    {{-- 画像表示 --}}
-                    @if(!empty($post->image_path))
-                    <div class="mb-8">
-                        <div class="bg-white p-4 rounded-2xl shadow-xl border-3 border-amber-300">
-                            <div class="text-center mb-3">
-                                <span class="bg-green-500 text-white px-4 py-2 rounded-full font-bold text-lg">
-                                    📸 冒険の写真
-                                </span>
-                            </div>
-                            <img src="{{ asset('storage/') . $post->image_path}}"
-                                alt="{{ $post->title }}"
-                                class="w-full h-80 object-cover rounded-xl shadow-lg border-2 border-amber-200">
-                        </div>
-                    </div>
+        .nav-button:hover {
+            background: rgba(16, 185, 129, 0.8);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 80px auto 40px;
+            padding: 0 20px;
+        }
+
+        .post-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            margin-bottom: 30px;
+        }
+
+        .post-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #10b981;
+        }
+
+        .post-title {
+            font-size: 36px;
+            font-weight: 800;
+            color: #1f2937;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .post-meta {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+
+        .meta-item {
+            background: linear-gradient(135deg, #10b981, #34d399);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            box-shadow: 0 2px 10px rgba(16, 185, 129, 0.3);
+        }
+
+        .post-body {
+            font-size: 18px;
+            line-height: 1.8;
+            color: #374151;
+            margin-bottom: 30px;
+            padding: 30px;
+            background: rgba(16, 185, 129, 0.05);
+            border-radius: 15px;
+            white-space: pre-line;
+        }
+
+        .post-point {
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+
+        .post-point a {
+            color: #fbbf24;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .post-point a:hover {
+            color: #fcd34d;
+            text-decoration: underline;
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 18px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-back {
+            background: linear-gradient(135deg, #6b7280, #4b5563);
+            color: white;
+        }
+
+        .btn-back:hover {
+            background: linear-gradient(135deg, #4b5563, #374151);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-edit {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: white;
+        }
+
+        .btn-edit:hover {
+            background: linear-gradient(135deg, #d97706, #b45309);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        /* ホタルアニメーション */
+        .firefly {
+            position: fixed;
+            width: 3px;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+            animation: float 8s infinite ease-in-out;
+            z-index: 1;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
+            10%, 90% {
+                opacity: 1;
+            }
+            50% {
+                transform: translateY(-100vh) translateX(50px);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-buttons {
+                flex-direction: column;
+                top: 15px;
+                left: 15px;
+            }
+
+            .nav-button {
+                font-size: 14px;
+                padding: 8px 16px;
+            }
+
+            .container {
+                margin-top: 140px;
+            }
+
+            .post-title {
+                font-size: 28px;
+            }
+
+            .post-body {
+                font-size: 16px;
+                padding: 20px;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    @for ($i = 0; $i < 30; $i++)
+    <div class="firefly" style="left: {{ rand(0, 100) }}%; top: {{ rand(0, 100) }}%; animation-delay: {{ rand(0, 8) }}s;">
+    </div>
+    @endfor
+
+    <!-- ナビゲーションボタン -->
+    <div class="nav-buttons">
+        <a href="{{ route('user-point-status.index') }}" class="nav-button">
+            📊 ステータス
+        </a>
+        <a href="{{ route('points.index') }}" class="nav-button">
+            🗺️ ポイント一覧
+        </a>
+    </div>
+
+    <div class="container">
+        <div class="post-card">
+            <div class="post-header">
+                <h1 class="post-title">📖 {{ $post->title }}</h1>
+                <div class="post-meta">
+                    @if($post->category)
+                    <span class="meta-item">🏷️ {{ $post->category }}</span>
                     @endif
-
-                    {{-- 投稿内容 --}}
-                    <div class="mb-8">
-                        <div class="bg-white rounded-2xl shadow-xl border-3 border-amber-300 overflow-hidden">
-                            <div class="bg-gradient-to-r from-green-400 to-blue-400 text-white p-4">
-                                <h3 class="text-2xl font-bold flex items-center gap-2" style="text-shadow: 1px 1px 2px rgba(0,0,0,0.3);">
-                                    📜 冒険のお話
-                                </h3>
-                            </div>
-                            <div class="p-6">
-                                <div class="bg-gradient-to-br from-yellow-50 to-orange-50 rounded-xl p-6 border-2 border-amber-200 shadow-inner">
-                                    <p class="text-gray-800 text-lg leading-relaxed whitespace-pre-line font-medium">
-                                        {{ $post->body }}
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    {{-- 関連情報 --}}
-                    <div class="bg-gradient-to-r from-cyan-100 to-blue-100 rounded-2xl shadow-xl border-3 border-blue-300 overflow-hidden">
-                        <div class="bg-gradient-to-r from-cyan-400 to-blue-500 text-white p-4">
-                            <h3 class="text-2xl font-bold flex items-center gap-2" style="text-shadow: 1px 1px 2px rgba(0,0,0,0.3);">
-                                🗺️ 冒険の場所
-                            </h3>
-                        </div>
-                        <div class="p-6">
-                            {{--関連ポイント--}}
-                            @if($post->point)
-                            <div class="bg-white rounded-xl p-4 shadow-md border-2 border-blue-200">
-                                <p class="text-lg">
-                                    <span class="text-blue-800 font-bold">🎯 この冒険をした場所：</span>
-                                    <a href="{{ route('points.show',$post->point->id) }}"
-                                        class="text-red-600 hover:text-red-800 font-bold text-xl hover:underline 
-                                               transform hover:scale-105 inline-block transition-all duration-200">
-                                        📍 {{ $post->point->name }}
-                                    </a>
-                                </p>
-                            </div>
-                            @endif
-                        </div>
-                    </div>
+                    <span class="meta-item">🗓️ {{ $post->created_at->format('Y年m月d日') }}</span>
+                    @if($post->user)
+                    <span class="meta-item">👤 {{ $post->user->name }}</span>
+                    @endif
                 </div>
             </div>
 
-            {{-- 戻るボタンと編集ボタン --}}
-            <div class="flex justify-between items-center mt-8 gap-4">
-                <a href="{{ route('posts.index') }}"
-                   class="bg-gradient-to-r from-gray-400 to-gray-500 hover:from-gray-500 hover:to-gray-600 
-                          text-white font-bold py-4 px-6 rounded-full text-lg transform hover:scale-105 
-                          transition-all duration-300 shadow-lg flex items-center gap-2">
-                    🔙 冒険一覧に戻る
+            @if(!empty($post->image_path))
+            <div style="margin-bottom: 30px;">
+                <img src="{{ asset('storage/' . $post->image_path) }}"
+                     alt="{{ $post->title }}"
+                     style="width: 100%; max-height: 500px; object-fit: cover; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
+            </div>
+            @endif
+
+            <div class="post-body">
+                {{ $post->body }}
+            </div>
+
+            @if($post->point)
+            <div class="post-point">
+                <p style="font-size: 18px; margin: 0;">
+                    <span style="font-weight: 600;">🗺️ 探検した場所：</span>
+                    <a href="{{ route('points.show', $post->point->id) }}">
+                        📍 {{ $post->point->name }}
+                    </a>
+                </p>
+            </div>
+            @endif
+
+            <div class="action-buttons">
+                <a href="{{ route('posts.index') }}" class="btn btn-back">
+                    🔙 投稿一覧に戻る
                 </a>
-                
                 @can('update', $post)
-                <a href="{{ route('posts.edit', $post) }}"
-                   class="bg-gradient-to-r from-orange-400 to-red-500 hover:from-orange-500 hover:to-red-600 
-                          text-white font-bold py-4 px-6 rounded-full text-lg transform hover:scale-105 
-                          transition-all duration-300 shadow-lg flex items-center gap-2">
-                    ✏️ この冒険を修正する
+                <a href="{{ route('posts.edit', $post) }}" class="btn btn-edit">
+                    ✏️ 編集する
                 </a>
                 @endcan
             </div>
-            
-            <!-- 励ましのメッセージ -->
-            <div class="text-center mt-8">
-                <div class="bg-white bg-opacity-90 rounded-3xl px-8 py-4 inline-block shadow-lg border-2 border-amber-300">
-                    <p class="text-lg text-amber-800 font-bold">
-                        🌟 素敵な冒険のお話だったね！君も冒険を記録してみよう！ 🌟
-                    </p>
-                </div>
-            </div>
         </div>
     </div>
-</x-app-layout>
+</body>
 
-{{-- 
-このデザインの特徴:
-1. 📖 「投稿詳細」→「冒険の記録を読もう！」
-2. 🎨 宝箱のような大きなカードデザインで冒険記録を表示
-3. 🏷️ カテゴリを宝石のようなバッジで表現
-4. 📸 画像がある場合は「冒険の写真」として特別に表示
-5. 📜 投稿内容を「冒険のお話」として巻物風に表示
-6. 🗺️ 関連ポイントを「冒険の場所」として地図風に表示
-7. 🌟 各セクションに探検テーマのアイコンと色分け
-8. ✏️ 編集ボタンも「冒険を修正する」に変更
-
-デザイン面:
-- セクション毎に異なる色のグラデーションで楽しく
-- 各ボックスに影と境界線で立体感
-- ホバーエフェクトで Interactive な体験
-- 背景装飾で探検の雰囲気を演出
-
-機能面:
-- 元のLaravelの表示機能を完全に保持
-- 画像表示の条件分岐も維持
-- ポイントへのリンク機能も保持
-- 認可機能(@can)による編集ボタン表示も維持
-- 日付フォーマットも維持
---}}
+</html>
