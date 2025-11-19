@@ -698,7 +698,7 @@
                             <div class="stat-label">クリアしたクイズ</div>
                         </div>
                         <div class="stat-item">
-                            <div class="stat-icon">📝</div>
+                            <div class="stat-icon"></div>
                             <div class="stat-number">{{ $totalPosts }}</div>
                             <div class="stat-label">投稿した記録</div>
                         </div>
