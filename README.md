@@ -1,66 +1,200 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 和白干潟探検アプリ
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+福岡市東区の和白干潟を楽しく探索できるWebアプリケーションです。
 
-## About Laravel
+![Laravel](https://img.shields.io/badge/Laravel-10.48.29-red)
+![PHP](https://img.shields.io/badge/PHP-8.4.14-blue)
+![MySQL](https://img.shields.io/badge/MySQL-8.0-orange)
+![Heroku](https://img.shields.io/badge/Heroku-Deployed-purple)
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 🌟 概要
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+和白干潟の9つの探索ポイントを訪れ、クイズに挑戦したり写真を投稿したりしながら、干潟の自然や生き物について学べるゲーミフィケーションアプリケーションです。
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+**本番環境**: https://wajiro-explorer-cb17817e375a.herokuapp.com/
 
-## Learning Laravel
+## 🎯 主な機能
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### 1. 探索ポイント管理
+- 和白干潟の9箇所の探索ポイントをインタラクティブに表示
+- 各ポイントの詳細情報、画像、説明文
+- Google Maps連携による現地へのナビゲーション機能
+- レスポンシブデザインでモバイル対応
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### 2. クイズチャレンジシステム
+- 各ポイントで出題される3問の多肢選択式クイズ
+- 全問正解で10ポイント獲得
+- リアルタイム正誤判定とアニメーション効果
+- クリア日時の記録
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### 3. 投稿・写真共有機能
+- 探索した場所の写真や感想を投稿（10ポイント獲得）
+- 全ユーザーの投稿一覧閲覧
+- 自分の投稿の編集・削除機能
+- ポイント別の投稿フィルタリング
 
-## Laravel Sponsors
+### 4. ランク・ポイントシステム
+獲得ポイントに応じて4段階のランクアップ：
+- **フィールド調査員** 🔰（0～49P）初心者
+- **エキスパート** ⭐（50～99P）中級者
+- **マスター** 🏆（100～149P）上級者
+- **レジェンド** 👑（150P以上）最高位
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### 5. ステータス・進捗管理
+- 訪問した場所の数、クリアしたミッション、獲得ポイントの可視化
+- 各ポイントの達成状況を一覧表示（クイズ・写真投稿）
+- ランク画像とバッジの表示
+- ミッション達成日時の記録
 
-### Premium Partners
+## 🛠️ 技術スタック
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+### バックエンド
+- **Framework**: Laravel 10.48.29
+- **Language**: PHP 8.4.14
+- **Database**: MySQL 8.0
+- **ORM**: Eloquent
+- **Authentication**: Laravel Breeze
+- **Validation**: Form Request Validation
 
-## Contributing
+### フロントエンド
+- **Build Tool**: Vite 5.4.19
+- **CSS Framework**: Tailwind CSS 3.4
+- **JavaScript**: Alpine.js
+- **Blade Templates**: Laravel Blade Engine
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### インフラ・デプロイ
+- **Production**: Heroku (v142)
+- **Database**: JawsDB MySQL
+- **Development**: Docker Compose
+- **Web Server**: Nginx/Apache
+- **Version Control**: Git/GitHub
 
-## Code of Conduct
+## 📦 セットアップ
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### 必要な環境
+- Docker & Docker Compose
+- Node.js 22.x以上
+- Composer 2.8以上
+- PHP 8.4以上
 
-## Security Vulnerabilities
+### ローカル環境での起動
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+1. リポジトリのクローン
+```bash
+git clone https://github.com/Jigen0509/Web01.git
+cd Web01
+```
 
-## License
+2. 環境変数の設定
+```bash
+cp .env.example .env
+# .envファイルを編集してDB接続情報を設定
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+3. Dockerコンテナの起動
+```bash
+docker-compose up -d
+```
+
+4. 依存関係のインストール
+```bash
+composer install
+npm install
+```
+
+5. アプリケーションキーの生成
+```bash
+php artisan key:generate
+```
+
+6. データベースのマイグレーション＆シーディング
+```bash
+php artisan migrate:fresh --seed
+```
+
+7. フロントエンドのビルド
+```bash
+npm run dev
+```
+
+8. アプリケーションへのアクセス
+```
+http://localhost
+```
+
+## 🎨 主な技術的実装
+
+### 認証・セキュリティ
+- Laravel Breezeによる認証機能
+- CSRF保護
+- パスワードハッシュ化
+- ミドルウェアによるアクセス制御
+
+### データベース設計
+- ユーザー、ポイント、投稿、クイズ、ステータスの正規化されたテーブル設計
+- 外部キー制約による整合性保証
+- インデックスによるクエリ最適化
+
+### UI/UXの工夫
+- グラデーション背景とアニメーション効果（キラキラ、泡、ホタル）
+- レスポンシブデザイン対応
+- インタラクティブなボタンとホバーエフェクト
+- ローディング状態の視覚的フィードバック
+
+### エラーハンドリング
+- Try-catchによる例外処理
+- ログ記録（Laravel Log Facade）
+- ユーザーフレンドリーなエラーメッセージ
+
+## 📊 データベース構造
+
+主要テーブル：
+- `users` - ユーザー情報（ランク、ポイント含む）
+- `points` - 探索ポイント情報
+- `posts` - ユーザー投稿
+- `quizzes` - クイズデータ
+- `user_point_statuses` - ユーザーの各ポイントでの達成状況
+
+## 🚀 デプロイ
+
+Herokuへのデプロイ手順：
+```bash
+# Heroku CLIでログイン
+heroku login
+
+# アプリケーションの作成（初回のみ）
+heroku create wajiro-explorer
+
+# JawsDB MySQLアドオンの追加
+heroku addons:create jawsdb:kitefin
+
+# デプロイ
+git push heroku main
+
+# マイグレーション実行
+heroku run php artisan migrate:fresh --seed
+```
+
+## 📝 今後の改善予定
+
+- [ ] 画像アップロード機能の実装
+- [ ] ソーシャルログイン対応
+- [ ] 通知機能の追加
+- [ ] ユーザー間のフォロー機能
+- [ ] 実績バッジシステムの拡張
+- [ ] PWA対応
+
+## 👤 作成者
+
+**Jigen0509**
+- GitHub: [@Jigen0509](https://github.com/Jigen0509)
+
+## 📄 ライセンス
+
+このプロジェクトはMITライセンスの下で公開されています。
+
+## 🙏 謝辞
+
+- Laravel Framework
+- Heroku Platform
+- 和白干潟の自然環境保護に関わるすべての方々
