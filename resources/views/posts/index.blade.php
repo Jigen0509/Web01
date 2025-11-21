@@ -359,10 +359,14 @@
         .nav-buttons {
             position: fixed;
             top: 20px;
-            left: 20px;
-            z-index: 1000;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 50;
             display: flex;
-            gap: 10px;
+            gap: 15px;
+            flex-wrap: nowrap;
+            justify-content: center;
+            max-width: 90%;
         }
 
         .nav-button {
@@ -370,20 +374,26 @@
             background: rgba(16, 185, 129, 0.6);
             backdrop-filter: blur(10px);
             color: #ffffff;
-            font-size: 18px;
+            font-size: 16px;
             font-weight: 700;
-            padding: 12px 30px;
+            padding: 12px 24px;
             border: 2px solid rgba(134, 239, 172, 0.5);
             text-decoration: none;
             transition: all 0.3s ease;
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            white-space: nowrap;
         }
 
         .nav-button:hover {
             background: rgba(16, 185, 129, 0.8);
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .nav-button.active {
+            background: rgba(16, 185, 129, 0.8);
+            border-color: #10b981;
         }
 
         /* フッター */

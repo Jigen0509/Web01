@@ -93,7 +93,7 @@
             display: flex;
             gap: 15px;
             z-index: 50;
-            flex-wrap: wrap;
+            flex-wrap: nowrap;
             justify-content: center;
             max-width: 90%;
         }
@@ -427,12 +427,15 @@
         @media (max-width: 768px) {
             .tag-navigation {
                 top: 10px;
-                gap: 8px;
+                gap: 4px;
+                max-width: 100%;
+                padding: 0 5px;
             }
 
             .nav-tag {
-                padding: 10px 16px;
-                font-size: 14px;
+                padding: 6px 10px;
+                font-size: 11px;
+                white-space: nowrap;
             }
 
             .page-title {
@@ -452,6 +455,18 @@
 
             .posts-grid {
                 grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .tag-navigation {
+                gap: 3px;
+                padding: 0 3px;
+            }
+
+            .nav-tag {
+                padding: 5px 8px;
+                font-size: 10px;
             }
         }
     </style>
