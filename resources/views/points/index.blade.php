@@ -95,7 +95,7 @@
             display: flex;
             gap: 15px;
             z-index: 50;
-            flex-wrap: nowrap; /* ここを nowrap に変更 */
+            flex-wrap: nowrap; /* アイテムを折り返さず、横一列に表示 */
             justify-content: center;
             max-width: 100%;
             padding: 0 10px;
@@ -114,9 +114,9 @@
             transition: all 0.3s ease;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-            flex-shrink: 1; /* 追加 */
-            min-width: 0; /* 追加 */
-            text-align: center; /* 追加：テキストを中央揃えにする */
+            flex-shrink: 1; /* 縮小を許可 */
+            min-width: 0; /* 最小幅を0に設定し、可能な限り縮小させる */
+            text-align: center; /* テキストを中央揃え */
         }
 
         .nav-tag:hover {
@@ -281,41 +281,35 @@
             letter-spacing: 0.05em;
         }
 
+        /* 768px以下の画面幅での調整 */
         @media (max-width: 768px) {
             .tag-navigation {
                 top: 10px;
-                gap: 8px; /* gapを少し調整 */
+                gap: 6px; /* gapを調整 */
                 padding: 0 5px;
             }
 
             .nav-tag {
-                padding: 8px 12px; /* パディングを調整 */
-                font-size: 12px; /* フォントサイズを調整 */
-                white-space: nowrap;
+                padding: 8px 10px; /* パディングをさらに調整 */
+                font-size: 11px; /* フォントサイズをさらに調整 */
             }
         }
 
-        @media (max-width: 480px) { /* 400pxと480pxのメディアクエリを整理 */
+        /* 480px以下の画面幅での調整 (スマートフォン向け) */
+        @media (max-width: 480px) {
             .tag-navigation {
-                gap: 5px; /* gapをさらに調整 */
+                gap: 4px; /* gapをさらに狭く */
                 padding: 0 3px;
             }
 
             .nav-tag {
-                padding: 6px 10px; /* パディングをさらに調整 */
-                font-size: 10px; /* フォントサイズをさらに調整 */
+                padding: 6px 8px; /* パディングを最小限に */
+                font-size: 9px; /* フォントサイズを最小限に */
+                letter-spacing: 0; /* 文字間隔をなくす */
             }
-        }
-
-        @media (max-width: 480px) {
-            .point-icon {
+            .point-icon { /* point-icon のスタイルはそのまま残します */
                 font-size: 20px;
                 margin-right: 10px;
-            }
-
-            .nav-tag {
-                padding: 6px 10px;
-                font-size: 12px;
             }
         }
     </style>
