@@ -73,7 +73,7 @@
             display: flex;
             gap: 15px;
             z-index: 50;
-            flex-wrap: wrap;
+            flex-wrap: nowrap;
             justify-content: center;
             max-width: 90%;
         }
@@ -692,13 +692,14 @@
         @media (max-width: 768px) {
             .tag-navigation {
                 top: 10px;
-                gap: 6px;
-                max-width: 95%;
+                gap: 4px;
+                max-width: 100%;
+                padding: 0 5px;
             }
 
             .nav-tag {
-                padding: 8px 12px;
-                font-size: 12px;
+                padding: 6px 10px;
+                font-size: 11px;
                 white-space: nowrap;
             }
 
