@@ -95,7 +95,7 @@
             display: flex;
             gap: 15px;
             z-index: 50;
-            flex-wrap: wrap;
+            flex-wrap: nowrap; /* ここを nowrap に変更 */
             justify-content: center;
             max-width: 100%;
             padding: 0 10px;
@@ -114,6 +114,9 @@
             transition: all 0.3s ease;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+            flex-shrink: 1; /* 追加 */
+            min-width: 0; /* 追加 */
+            text-align: center; /* 追加：テキストを中央揃えにする */
         }
 
         .nav-tag:hover {
@@ -281,27 +284,26 @@
         @media (max-width: 768px) {
             .tag-navigation {
                 top: 10px;
-                gap: 4px;
-                max-width: 100%;
+                gap: 8px; /* gapを少し調整 */
                 padding: 0 5px;
             }
 
             .nav-tag {
-                padding: 6px 10px;
-                font-size: 11px;
+                padding: 8px 12px; /* パディングを調整 */
+                font-size: 12px; /* フォントサイズを調整 */
                 white-space: nowrap;
             }
         }
 
-        @media (max-width: 400px) {
+        @media (max-width: 480px) { /* 400pxと480pxのメディアクエリを整理 */
             .tag-navigation {
-                gap: 3px;
+                gap: 5px; /* gapをさらに調整 */
                 padding: 0 3px;
             }
 
             .nav-tag {
-                padding: 5px 8px;
-                font-size: 10px;
+                padding: 6px 10px; /* パディングをさらに調整 */
+                font-size: 10px; /* フォントサイズをさらに調整 */
             }
         }
 
