@@ -709,6 +709,23 @@
                 padding: 10px 16px;
                 font-size: 14px;
             }
+        }
+
+        @media (max-width: 400px) {
+            .tag-navigation {
+                gap: 3px;
+                padding: 0 3px;
+            }
+
+            .nav-tag {
+                padding: 5px 8px;
+                font-size: 10px;
+            }
+
+            .logout-button {
+                padding: 8px 12px;
+                font-size: 12px;
+            }
 
             .page-title {
                 font-size: 32px;

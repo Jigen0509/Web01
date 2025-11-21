@@ -281,14 +281,27 @@
         @media (max-width: 768px) {
             .tag-navigation {
                 top: 10px;
-                gap: 6px;
-                max-width: 95%;
+                gap: 4px;
+                max-width: 100%;
+                padding: 0 5px;
             }
 
             .nav-tag {
-                padding: 8px 12px;
-                font-size: 12px;
+                padding: 6px 10px;
+                font-size: 11px;
                 white-space: nowrap;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .tag-navigation {
+                gap: 3px;
+                padding: 0 3px;
+            }
+
+            .nav-tag {
+                padding: 5px 8px;
+                font-size: 10px;
             }
         }
 

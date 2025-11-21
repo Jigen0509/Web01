@@ -475,15 +475,29 @@
                 top: 10px;
                 left: 50%;
                 transform: translateX(-50%);
-                gap: 6px;
-                max-width: 95%;
+                gap: 4px;
+                max-width: 100%;
+                padding: 0 5px;
                 justify-content: center;
+                flex-wrap: nowrap;
             }
 
             .nav-button {
-                font-size: 12px;
-                padding: 8px 12px;
+                font-size: 11px;
+                padding: 6px 10px;
                 white-space: nowrap;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .nav-buttons {
+                gap: 3px;
+                padding: 0 3px;
+            }
+
+            .nav-button {
+                font-size: 10px;
+                padding: 5px 8px;
             }
         }
 
