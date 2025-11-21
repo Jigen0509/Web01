@@ -282,11 +282,13 @@
             .tag-navigation {
                 top: 10px;
                 gap: 6px;
+                max-width: 95%;
             }
 
             .nav-tag {
                 padding: 8px 12px;
-                font-size: 13px;
+                font-size: 12px;
+                white-space: nowrap;
             }
         }
 

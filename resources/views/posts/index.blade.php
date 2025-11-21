@@ -471,14 +471,19 @@
 
             /* ナビゲーションボタンのスマホ調整 */
             .nav-buttons {
-                flex-direction: column;
-                top: 15px;
-                left: 15px;
+                flex-direction: row;
+                top: 10px;
+                left: 50%;
+                transform: translateX(-50%);
+                gap: 6px;
+                max-width: 95%;
+                justify-content: center;
             }
 
             .nav-button {
-                font-size: 14px;
-                padding: 8px 16px;
+                font-size: 12px;
+                padding: 8px 12px;
+                white-space: nowrap;
             }
         }
 

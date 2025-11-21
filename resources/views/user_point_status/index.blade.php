@@ -692,12 +692,14 @@
         @media (max-width: 768px) {
             .tag-navigation {
                 top: 10px;
-                gap: 8px;
+                gap: 6px;
+                max-width: 95%;
             }
 
             .nav-tag {
-                padding: 10px 16px;
-                font-size: 14px;
+                padding: 8px 12px;
+                font-size: 12px;
+                white-space: nowrap;
             }
 
             .logout-button {
