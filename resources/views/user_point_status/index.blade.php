@@ -708,6 +708,15 @@
                 right: 10px;
                 padding: 10px 16px;
                 font-size: 14px;
+                z-index: 101;
+            }
+
+            .back-button {
+                top: 55px;
+                left: 10px;
+                padding: 10px 16px;
+                font-size: 14px;
+                z-index: 100;
             }
         }
 
@@ -723,7 +732,16 @@
             }
 
             .logout-button {
-                padding: 8px 12px;
+                top: 6px;
+                right: 6px;
+                padding: 8px 10px;
+                font-size: 12px;
+            }
+
+            .back-button {
+                top: 40px;
+                left: 6px;
+                padding: 8px 10px;
                 font-size: 12px;
             }
 
