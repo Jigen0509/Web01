@@ -81,7 +81,7 @@
         .logout-button {
             position: fixed;
             top: 20px;
-            right: 20px;
+            left: 20px;
             z-index: 100;
             padding: 12px 24px;
             background: rgba(239, 68, 68, 0.6);
@@ -704,8 +704,8 @@
             }
 
             .logout-button {
-                top: 10px;
-                right: 10px;
+                top: 55px;
+                left: 10px;
                 padding: 10px 16px;
                 font-size: 14px;
                 z-index: 101;
@@ -732,14 +732,14 @@
             }
 
             .logout-button {
-                top: 6px;
-                right: 6px;
+                top: 37px;
+                left: 6px;
                 padding: 8px 10px;
                 font-size: 12px;
             }
 
             .back-button {
-                top: 40px;
+                top: 37px;
                 left: 6px;
                 padding: 8px 10px;
                 font-size: 12px;

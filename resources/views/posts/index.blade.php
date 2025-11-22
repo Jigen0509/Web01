@@ -154,6 +154,7 @@
         .header {
             text-align: center;
             margin-bottom: 50px;
+            padding-top: 60px;
         }
 
         .header h1 {
